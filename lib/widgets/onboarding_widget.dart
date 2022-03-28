@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/screens/home_screen.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 
 class OnboardingWidget extends StatefulWidget {
@@ -143,10 +144,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                             borderRadius: 28,
                             ontap: () {
                               setState(() {
-                                widget.pageController.animateToPage(
-                                    (widget.screenIndex + 1),
-                                    duration: Duration(milliseconds: 200),
-                                    curve: Curves.easeIn);
+                                if (widget.screenIndex == 2) {
+                                  Navigator.of(context).pushNamed(HomeScreen.routename);
+                                }
+                                else{
+                                  widget.pageController.animateToPage(
+                                      (widget.screenIndex + 1),
+                                      duration: Duration(milliseconds: 200),
+                                      curve: Curves.easeIn);
+                                }
                               });
                             },
                             buttonText: widget.screenIndex == 2

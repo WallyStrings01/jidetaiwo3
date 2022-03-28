@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:jidetaiwoapp/screens/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,21 +14,30 @@ class _SplashScreenState extends State<SplashScreen> {
   int percent = 0;
   @override
   void initState() {
+    runTimerFunction();
+    super.initState();
+  }
+
+  void runTimerFunction() {
     Timer? timer;
-    timer = Timer.periodic(Duration(milliseconds: 50), (_) {
+    percent = 0;
+    timer = Timer.periodic(Duration(milliseconds: 20), (_) {
       setState(() {
         percent += 1;
         if (percent >= 100) {
           timer?.cancel();
+          Navigator.of(context)
+              .pushNamed(OnboardingScreen.routename)
+              .then((value) => runTimerFunction());
         }
       });
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(

@@ -9,6 +9,7 @@ class ElevatedButtonWidget extends StatelessWidget {
   final Color? borderColor;
   final Color textColor;
   final Color bgColor;
+  final double? textSize;
 
   const ElevatedButtonWidget(
       {required this.width,
@@ -16,6 +17,7 @@ class ElevatedButtonWidget extends StatelessWidget {
       required this.buttonText,
       required this.borderRadius,
       this.borderColor,
+      this.textSize,
       required this.ontap,
       required this.textColor,
       required this.bgColor,
@@ -27,7 +29,7 @@ class ElevatedButtonWidget extends StatelessWidget {
     return ElevatedButton(
         onPressed: () => ontap(),
         style: ElevatedButton.styleFrom(
-          elevation: 0,
+            elevation: 0,
             primary: bgColor,
             side: BorderSide(color: borderColor ?? Colors.white),
             shape: RoundedRectangleBorder(
@@ -35,9 +37,7 @@ class ElevatedButtonWidget extends StatelessWidget {
             minimumSize: Size(width, height)),
         child: Text(
           buttonText,
-          style: Theme.of(context).textTheme.button!.copyWith(
-            color: textColor
-          ),
+          style: Theme.of(context).textTheme.button!.copyWith(color: textColor, fontSize: textSize),
         ));
   }
 }

@@ -1,22 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/screens/searchforproperty_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 
-class ExplorePropertyScreen extends StatelessWidget {
+class ExplorePropertyScreen extends StatefulWidget {
+  static const routename = '/explorescreen';
   const ExplorePropertyScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ExplorePropertyScreen> createState() => _ExplorePropertyScreenState();
+}
+
+class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
+  FocusNode _searchfocusNode = FocusNode();
+
+  @override
+  void initState() {
+    _searchfocusNode.addListener(_onsearchTap);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searchfocusNode.removeListener(_onsearchTap);
+    _searchfocusNode.dispose();
+    super.dispose();
+  }
+
+  void _onsearchTap() {
+    if(_searchfocusNode.hasFocus)
+    {
+      FocusScope.of(context).unfocus();
+      Navigator.of(context).pushNamed(SearchforpropertyScreen.routename);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('Explore our properties'),
+        child: AppBarWidget('Explore our properties', () {}),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             TextField(
+              autofocus: false,
+              focusNode: _searchfocusNode,
               decoration: InputDecoration(
                 labelText: 'Search for properties',
                 labelStyle: Theme.of(context)
@@ -40,8 +72,10 @@ class ExplorePropertyScreen extends StatelessWidget {
                     itemBuilder: (ctx, index) => Column(
                           children: [
                             Container(
-                              child : Image.asset('assets/images/landproperty.png', fit: BoxFit.cover,)
-                            ),
+                                child: Image.asset(
+                              'assets/images/landproperty.png',
+                              fit: BoxFit.cover,
+                            )),
                             SizedBox(
                               height: 15,
                             ),
@@ -235,28 +269,40 @@ class ExplorePropertyScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 15,),
+                            SizedBox(
+                              height: 15,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   height: 46,
-                                  width: (MediaQuery.of(context).size.width / 2) - 35.0,
+                                  width:
+                                      (MediaQuery.of(context).size.width / 2) -
+                                          35.0,
                                   decoration: BoxDecoration(
-                                    color: hextocolor('#E1E1E1'),
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
+                                      color: hextocolor('#E1E1E1'),
+                                      borderRadius: BorderRadius.circular(10)),
                                   alignment: Alignment.center,
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.share, size: 24,),
+                                      Icon(
+                                        Icons.share,
+                                        size: 24,
+                                      ),
                                       SizedBox(width: 7),
-                                      Text('Share Property', style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                        fontSize: 14,
-                                      ),)
+                                      Text(
+                                        'Share Property',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                              fontSize: 14,
+                                            ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -266,25 +312,28 @@ class ExplorePropertyScreen extends StatelessWidget {
                                       (MediaQuery.of(context).size.width / 2) -
                                           35.0,
                                   decoration: BoxDecoration(
-                                    color: hextocolor('#FDEFED'),
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
+                                      color: hextocolor('#FDEFED'),
+                                      borderRadius: BorderRadius.circular(10)),
                                   alignment: Alignment.center,
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.favorite_outline, size: 24, color: hextocolor('#EC5757'),),
+                                      Icon(
+                                        Icons.favorite_outline,
+                                        size: 24,
+                                        color: hextocolor('#EC5757'),
+                                      ),
                                       SizedBox(width: 7),
-                                      Text('Add to Favourites',
+                                      Text(
+                                        'Add to Favourites',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1!
                                             .copyWith(
-                                              fontSize: 14,
-                                              color: hextocolor('#EC5757')
-                                            ),
+                                                fontSize: 14,
+                                                color: hextocolor('#EC5757')),
                                       )
                                     ],
                                   ),
@@ -307,12 +356,18 @@ class ExplorePropertyScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10)),
                                   alignment: Alignment.center,
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.call, size: 24, color: hextocolor('#247828'),),
+                                      Icon(
+                                        Icons.call,
+                                        size: 24,
+                                        color: hextocolor('#247828'),
+                                      ),
                                       SizedBox(width: 7),
-                                      Text('Give us a call',
+                                      Text(
+                                        'Give us a call',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1!
@@ -334,12 +389,17 @@ class ExplorePropertyScreen extends StatelessWidget {
                                   alignment: Alignment.center,
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.mail, size: 24, color: hextocolor('#CF9B14'),),
+                                      Icon(
+                                        Icons.mail,
+                                        size: 24,
+                                        color: hextocolor('#CF9B14'),
+                                      ),
                                       SizedBox(width: 7),
-                                      Text('Send a message',
+                                      Text(
+                                        'Send a message',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1!
@@ -352,7 +412,9 @@ class ExplorePropertyScreen extends StatelessWidget {
                                 )
                               ],
                             ),
-                            SizedBox(height: 30,)
+                            SizedBox(
+                              height: 30,
+                            )
                           ],
                         )))
           ],

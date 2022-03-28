@@ -1,34 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String title;
+  final Function onTap;
 
-  const AppBarWidget(@required this.title ,{Key? key}) : super(key: key);
+  const AppBarWidget(@required this.title, @required this.onTap, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
-      leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 28,
-          )),
-      title: Text(
-        title,
-        style: TextStyle(
-            fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
-            fontSize: 20),
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+           IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 28,
+              )),
+          Text(
+            title,
+            style: TextStyle(
+                fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
+                fontSize: 20),
+          ),
+          GestureDetector(
+            onTap: () => onTap(),
+            child: SvgPicture.asset(
+              'assets/icons/Frame2.svg',
+              height: 18,
+              width: 18,
+            ),
+          )
+        ],
       ),
-      actions: const [
-        Image(
-          image: AssetImage('assets/icons/menuicon.png'),
-          height: 50,
-          width: 50,
-        )
-      ],
+      actions: [Container()],
     );
   }
 }

@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/mainmenu_one.dart';
 import 'package:jidetaiwoapp/widgets/onboarding_widget.dart';
 
 class OnboardingScreen extends StatelessWidget {
+  static const routename = '/onboardingscreen';
   PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const PreferredSize(
+        appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
-          child: AppBarWidget('JIDE TAIWO & CO.'),
+          child: Builder(
+            builder: (context) => AppBarWidget('JIDE TAIWO & CO.', () {
+              Scaffold.of(context).openEndDrawer();
+            }),
+          ),
         ),
+        endDrawerEnableOpenDragGesture: false,
+        endDrawer: MenuMenuOne(),
         body: PageView.builder(
             controller: _pageController,
             physics: NeverScrollableScrollPhysics(),
