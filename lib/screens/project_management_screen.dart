@@ -55,7 +55,9 @@ class ProjectManagementScreen extends StatelessWidget {
     ];
     return Scaffold(
         appBar: PreferredSize(
-            child: AppBarWidget('Facility Management', () {}),
+            child: AppBarWidget('Facility Management', () {
+              Scaffold.of(context).openEndDrawer();
+            }),
             preferredSize: const Size.fromHeight(kToolbarHeight)),
         endDrawerEnableOpenDragGesture: false,
         endDrawer: const MenuMenuOneDrawer(),

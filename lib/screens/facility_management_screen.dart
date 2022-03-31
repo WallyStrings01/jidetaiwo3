@@ -15,7 +15,9 @@ class FacilityManagementScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-            child: AppBarWidget('Facility Management', () {}),
+            child: AppBarWidget('Facility Management', () {
+              Scaffold.of(context).openEndDrawer();
+            }),
             preferredSize: const Size.fromHeight(kToolbarHeight),
             ),
         endDrawerEnableOpenDragGesture: false,

@@ -11,7 +11,9 @@ class PublicSectorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          child: AppBarWidget('Project Management', () {}),
+          child: AppBarWidget('Project Management', () {
+            Scaffold.of(context).openEndDrawer();
+          }),
           preferredSize: const Size.fromHeight(kToolbarHeight)),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: const MenuMenuOneDrawer(),

@@ -13,7 +13,9 @@ class AdvisoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          child: AppBarWidget('Advisory & Consultancy', () {}),
+          child: AppBarWidget('Advisory & Consultancy', () {
+            Scaffold.of(context).openEndDrawer();
+          }),
           preferredSize: const Size.fromHeight(kToolbarHeight)),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: const MenuMenuOneDrawer(),
