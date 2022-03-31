@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
 
-class MenuMenuTwo extends StatelessWidget {
-  const MenuMenuTwo({Key? key}) : super(key: key);
+class ClientDashboradMenuDrawer extends StatelessWidget {
+  const ClientDashboradMenuDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        height: double.maxFinite,
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-        decoration: BoxDecoration(color: Colors.black),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+        decoration: const BoxDecoration(color: Colors.black),
         child: Column(
           children: [
             Container(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.white,
+                  )),
+              child: Text(
+                'MY DASHBOARD',
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 14, color: Colors.white),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Container(
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -21,7 +40,7 @@ class MenuMenuTwo extends StatelessWidget {
                     color: Colors.white,
                   )),
               child: Text(
-                'CLIENT LOGIN',
+                'MY PROPERTIES',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -41,7 +60,7 @@ class MenuMenuTwo extends StatelessWidget {
                     color: Colors.white,
                   )),
               child: Text(
-                'PROFILE',
+                'MY PROFILE',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -61,7 +80,7 @@ class MenuMenuTwo extends StatelessWidget {
                     color: Colors.white,
                   )),
               child: Text(
-                'LETTING',
+                'REPORT A COMPLAINT',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -81,7 +100,7 @@ class MenuMenuTwo extends StatelessWidget {
                     color: Colors.white,
                   )),
               child: Text(
-                'VALUATION',
+                'CHANGE PASSWORD',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -101,7 +120,7 @@ class MenuMenuTwo extends StatelessWidget {
                     color: Colors.white,
                   )),
               child: Text(
-                'FIND A PROPERTY',
+                'SIGN OUT',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

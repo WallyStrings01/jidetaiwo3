@@ -26,10 +26,13 @@ class AboutusScreen extends StatelessWidget {
                     ),
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               Container(
-                decoration: BoxDecoration(color: hextocolor('#FBF9F9')),
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/watermarkimage2.png')),
+                  color: hextocolor('#FBF9F9')),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                 child: Text(
@@ -45,7 +48,7 @@ With our in-depth understanding of the real estate industry in Nigeria, we are a
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
-                      .copyWith(fontSize: 16, color: hextocolor('#5E5B5B')),
+                      .copyWith(fontSize: 14,height: 1.5, color: hextocolor('#5E5B5B')),
                 ),
               )
             ],

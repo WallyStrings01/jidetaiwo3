@@ -1,315 +1,165 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/mainmenu_two.dart';
+import 'package:jidetaiwoapp/widgets/drawer/main_menu_two_drawer.dart';
 
-class MydashboardScreen extends StatefulWidget {
+class MydashboardScreen extends StatelessWidget {
   static const routename = '/mydashboardscreen';
   const MydashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<MydashboardScreen> createState() => _MydashboardScreenState();
-}
-
-class _MydashboardScreenState extends State<MydashboardScreen> {
-  int navigationBarCurrentIndex = 0;
-
-
-  @override
   Widget build(BuildContext context) {
+    List _containerDetails = [
+      {'number': 12, 'text': 'Total number of prospect'},
+      {'number': 12, 'text': 'Total number of properties available'},
+      {'number': 12, 'text': 'Total number of views'}
+    ];
     return Scaffold(
-      backgroundColor: hextocolor('#E5E5E5'),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: Builder(
-          builder: (context) => AppBarWidget('My Dashboard', () {
-            Scaffold.of(context).openEndDrawer();
-          }),
-        ),
-      ),
-      endDrawerEnableOpenDragGesture: false,
-      endDrawer: MenuMenuTwo(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 36,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        child: Text('12', style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).primaryColor
-                        ),),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Total number of your property listings',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18, color: hextocolor('#5E5B5B')),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: ElevatedButtonWidget(
-                              width: double.maxFinite,
-                              height: 50,
-                              buttonText: 'Add new properties',
-                              borderRadius: 8,
-                              textSize: 14,
-                              ontap: () {},
-                              textColor: Colors.white,
-                              bgColor: Theme.of(context).primaryColor),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: ElevatedButtonWidget(
-                              width: double.maxFinite,
-                              height: 50,
-                              buttonText: 'View details',
-                              borderRadius: 8,
-                              textSize: 14,
-                              ontap: () {},
-                              textColor: Colors.white,
-                              bgColor: Theme.of(context).primaryColor),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                child: Column(
-                  children: [
-                     CircleAvatar(
-                      radius: 36,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        child: Text(
-                          '12',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Total number of prospect',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18, color: hextocolor('#5E5B5B')),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButtonWidget(
-                        width: double.maxFinite,
-                        height: 50,
-                        buttonText: 'View details',
-                        borderRadius: 8,
-                        textSize: 14,
-                        ontap: () {},
-                        textColor: Colors.white,
-                        bgColor: Theme.of(context).primaryColor),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                child: Column(
-                  children: [
-                     CircleAvatar(
-                      radius: 36,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        child: Text(
-                          '12',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Total number of properties available',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18, color: hextocolor('#5E5B5B')),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButtonWidget(
-                        width: double.maxFinite,
-                        height: 50,
-                        buttonText: 'View details',
-                        borderRadius: 8,
-                        textSize: 14,
-                        ontap: () {},
-                        textColor: Colors.white,
-                        bgColor: Theme.of(context).primaryColor),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                child: Column(
-                  children: [
-                     CircleAvatar(
-                      radius: 36,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        child: Text(
-                          '12',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Total number of views',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18, color: hextocolor('#5E5B5B')),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButtonWidget(
-                        width: double.maxFinite,
-                        height: 50,
-                        buttonText: 'Add new properties',
-                        borderRadius: 8,
-                        textSize: 14,
-                        ontap: () {},
-                        textColor: Colors.white,
-                        bgColor: Theme.of(context).primaryColor),
-                  ],
-                ),
-              ),
-            ],
+        backgroundColor: hextocolor('#E5E5E5'),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Builder(
+            builder: (context) => AppBarWidget('My Dashboard', () {
+              Scaffold.of(context).openEndDrawer();
+            }),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).primaryColor,
-          unselectedItemColor: hextocolor('#585454'),
-          elevation: 0,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: navigationBarCurrentIndex,
-          backgroundColor: hextocolor('#FDEFED'),
-          onTap: (index) {
-            setState(() {
-              navigationBarCurrentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                ),
-                label: 'Home',),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.account_balance_wallet,
-                ),
-                label: 'Wallet'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.settings,
-                ),
-                label: 'Settings'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.person,
-                ),
-                label: 'Profile'),
-          ]),
-    );
+        endDrawerEnableOpenDragGesture: false,
+        endDrawer: const MenuMenuTwoDrawer(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              children: List.generate(_containerDetails.length + 1, (index) => index == 0 ? Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 36,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        child: CircleAvatar(
+                          radius: 35,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          child: Text(
+                            '12',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context).primaryColor),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        'Total number of your property listings',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18, color: hextocolor('#5E5B5B')),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            child: ElevatedButtonWidget(
+                                width: double.maxFinite,
+                                height: 50,
+                                buttonText: 'Add new properties',
+                                borderRadius: 8,
+                                textSize: 14,
+                                ontap: () {},
+                                textColor: Colors.white,
+                                bgColor: Theme.of(context).primaryColor),
+                          ),
+                         const  SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: ElevatedButtonWidget(
+                                width: double.maxFinite,
+                                height: 50,
+                                buttonText: 'View details',
+                                borderRadius: 8,
+                                textSize: 14,
+                                ontap: () {},
+                                textColor: Colors.white,
+                                bgColor: Theme.of(context).primaryColor),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ): Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 36,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        child: CircleAvatar(
+                          radius: 35,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          child: Text(
+                            _containerDetails[index - 1]['number'].toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context).primaryColor),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        _containerDetails[index - 1]['text'],
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18, color: hextocolor('#5E5B5B')),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButtonWidget(
+                          width: double.maxFinite,
+                          height: 50,
+                          buttonText: 'View details',
+                          borderRadius: 8,
+                          textSize: 14,
+                          ontap: () {},
+                          textColor: Colors.white,
+                          bgColor: Theme.of(context).primaryColor),
+                    ],
+                  ),
+                ),)
+            ),
+          ),
+        ),
+        bottomNavigationBar: const BottomNavigationWidget());
   }
 }

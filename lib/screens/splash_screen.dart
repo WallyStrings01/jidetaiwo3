@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void runTimerFunction() {
     Timer? timer;
     percent = 0;
-    timer = Timer.periodic(Duration(milliseconds: 20), (_) {
+    timer = Timer.periodic(const Duration(milliseconds: 20), (_) {
       setState(() {
         percent += 1;
         if (percent >= 100) {
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Expanded(
+          const Expanded(
               flex: 2,
               child: Image(
                 image: AssetImage('assets/images/jidetaiwo.png'),
@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
                       alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       width: double.infinity,
                       height: 20,
                       decoration: BoxDecoration(

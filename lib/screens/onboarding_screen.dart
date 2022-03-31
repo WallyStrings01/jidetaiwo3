@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
-import 'package:jidetaiwoapp/widgets/button_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/mainmenu_one.dart';
+import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 import 'package:jidetaiwoapp/widgets/onboarding_widget.dart';
 
 class OnboardingScreen extends StatelessWidget {
   static const routename = '/onboardingscreen';
-  PageController _pageController = PageController();
+  const OnboardingScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    PageController _pageController = PageController();
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
+          preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Builder(
             builder: (context) => AppBarWidget('JIDE TAIWO & CO.', () {
               Scaffold.of(context).openEndDrawer();
@@ -19,10 +20,10 @@ class OnboardingScreen extends StatelessWidget {
           ),
         ),
         endDrawerEnableOpenDragGesture: false,
-        endDrawer: MenuMenuOne(),
+        endDrawer: const ClientDashboradMenuDrawer(),
         body: PageView.builder(
             controller: _pageController,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: 3,
             itemBuilder: (ctx, index) => OnboardingWidget(
                   pageController: _pageController,

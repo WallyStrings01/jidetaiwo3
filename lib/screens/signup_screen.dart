@@ -1,27 +1,45 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
-import 'package:jidetaiwoapp/screens/clientlogin_screen.dart';
+import 'package:jidetaiwoapp/screens/login_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 
-class ClientSignupScreen extends StatefulWidget {
-  static const routename = '/clientsignuupscreen';
-  ClientSignupScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  static const routename = '/signuupscreen';
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<ClientSignupScreen> createState() => _ClientSignupScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _ClientSignupScreenState extends State<ClientSignupScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   bool? checkboxValue = false;
+
+  Widget _inputForm(String label) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: Theme.of(context)
+            .textTheme
+            .bodyText1!
+            .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
+        filled: true,
+        fillColor: hextocolor('#FAFAFA'),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
+            borderSide:  const BorderSide(color: Colors.white)),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final appbarText = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('CLIENT SIGN UP', () {}),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBarWidget('${appbarText.toUpperCase()} SIGN UP', () {}),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -34,74 +52,28 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                   Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Full name',
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
-                  filled: true,
-                  fillColor: hextocolor('#FAFAFA'),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(color: Colors.white)),
-                ),
-              ),
-            ),
-            SizedBox(
+            _inputForm('Full name'),
+            const SizedBox(
               height: 20,
             ),
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Mobile number',
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
-                  filled: true,
-                  fillColor: hextocolor('#FAFAFA'),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(color: Colors.white)),
-                ),
-              ),
-            ),
-            SizedBox(
+            _inputForm('Mobile number'),
+            const SizedBox(
               height: 20,
             ),
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
-                  filled: true,
-                  fillColor: hextocolor('#FAFAFA'),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(color: Colors.white)),
-                ),
-              ),
-            ),
-            SizedBox(
+            _inputForm('Email'),
+            const SizedBox(
               height: 20,
             ),
-            Container(
-              child: DropdownButtonFormField(
+            DropdownButtonFormField(
               decoration: InputDecoration(
                 filled: true,
                 fillColor: hextocolor('#FAFAFA'),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6),
-                    borderSide: BorderSide(color: Colors.white)),
+                    borderSide: const BorderSide(color: Colors.white)),
               ),
               hint: Text(
                 'Account type',
@@ -131,13 +103,11 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                 );
               }).toList(),
               onChanged: (_) {},
-            )
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Container(
-              child: TextFormField(
+            TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Address',
                   alignLabelWithHint: true,
@@ -149,15 +119,14 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                   fillColor: hextocolor('#FAFAFA'),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(color: Colors.white)),
+                      borderSide:  const BorderSide(color: Colors.white)),
                 ),
                 keyboardType: TextInputType.multiline,
                 textInputAction: TextInputAction.newline,
                 minLines: 5,
                 maxLines: null,
-              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             RichText(
@@ -169,31 +138,16 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                   TextSpan(
                       text: 'Security code',
                       style: TextStyle(color: hextocolor('#C4C4C4'))),
-                  TextSpan(text: '  '),
+                  const TextSpan(text: '  '),
                   TextSpan(
                       text: 'What is 10 * 4 ?',
                       style: TextStyle(color: hextocolor('#5E5B5B')))
                 ])),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Enter the security code shown above',
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
-                  filled: true,
-                  fillColor: hextocolor('#FAFAFA'),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(color: Colors.white)),
-                ),
-              ),
-            ),
-            SizedBox(
+            _inputForm('Enter the security code shown above'),
+            const SizedBox(
               height: 40,
             ),
             ElevatedButtonWidget(
@@ -204,7 +158,7 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                 ontap: () {},
                 textColor: Colors.white,
                 bgColor: Theme.of(context).primaryColor),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             RichText(
@@ -214,18 +168,18 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                       .bodyText1!
                       .copyWith(fontSize: 18),
                   children: [
-                    TextSpan(text: 'Already have an account ? Click '),
+                    const TextSpan(text: 'Already have an account ? Click '),
                     TextSpan(
                         text: 'Here',
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.of(context)
-                              .pushNamed(ClientLoginScreen.routename),
+                              .pushNamed(LoginScreen.routename),
                         style:
                             TextStyle(color: Theme.of(context).primaryColor)),
-                    TextSpan(text: ' to Log In')
+                    const TextSpan(text: ' to Log In')
                   ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Text(
@@ -236,7 +190,7 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                   .copyWith(fontSize: 18, fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -245,7 +199,7 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                   Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
@@ -263,7 +217,7 @@ class _ClientSignupScreenState extends State<ClientSignupScreen> {
                     color: Theme.of(context).primaryColor),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Checkbox(

@@ -2,43 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/screens/agentlisting_screen.dart';
 import 'package:jidetaiwoapp/screens/auction_screen.dart';
-import 'package:jidetaiwoapp/screens/clientlogin_screen.dart';
+import 'package:jidetaiwoapp/screens/dashboardscreen.dart';
+import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
+import 'package:jidetaiwoapp/screens/login_screen.dart';
 import 'package:jidetaiwoapp/screens/exploreproperty_screen.dart';
-import 'package:jidetaiwoapp/screens/searchforproperty_screen.dart';
+import 'package:jidetaiwoapp/screens/valuation_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/mainmenu_one.dart';
+import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routename = '/homescreen';
-  HomeScreen({Key? key}) : super(key: key);
-
-  List gridviewItems = [
-    {
-      'image': 'assets/icons/propertysearch.png',
-      'text': 'Property Search',
-      'navigation': ExplorePropertyScreen.routename
-    },
-    {
-      'image': 'assets/icons/clientlogin.png',
-      'text': 'Client Login',
-      'navigation': ClientLoginScreen.routename
-    },
-    {
-      'image': 'assets/icons/saleauctions.png',
-      'text': 'Auctions',
-      'navigation': AuctionScreen.routename
-    },
-    {
-      'image': 'assets/icons/agentlisting.png',
-      'text': 'Agent Property Listing',
-      'navigation': AgentListingScreen.routename
-    },
-    {'image': 'assets/icons/contactus.png', 'text': 'Contact Us'},
-    {'image': 'assets/icons/valuation.png', 'text': 'Valuation'}
-  ];
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List gridviewItems = [
+      {
+        'image': 'assets/icons/propertysearch.png',
+        'text': 'Property Search',
+        'navigation': ExplorePropertyScreen.routename
+      },
+      {
+        'image': 'assets/icons/clientlogin.png',
+        'text': 'Client Login',
+        'navigation': DashboardScreen.routename
+      },
+      {
+        'image': 'assets/icons/saleauctions.png',
+        'text': 'Auctions',
+        'navigation': AuctionScreen.routename
+      },
+      {
+        'image': 'assets/icons/agentlisting.png',
+        'text': 'Agent Property Listing',
+        'navigation': AgentListingScreen.routename
+      },
+      {'image': 'assets/icons/contactus.png', 'text': 'Contact Us', 'navigation' : GetInTouchScreen.routename},
+      {'image': 'assets/icons/valuation.png', 'text': 'Valuation', 'navigation' : ValuationScreen.routename}
+    ];
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
@@ -49,25 +51,20 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       endDrawerEnableOpenDragGesture: false,
-      endDrawer: MenuMenuOne(),
+      endDrawer: const MenuMenuOneDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: GridView.builder(
             itemCount: 6,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 2 / 2,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 30),
             itemBuilder: (ctx, index) => GestureDetector(
                   onTap: () {
-                    if (gridviewItems[index]['text'] != 'Contact Us' &&
-                        gridviewItems[index]['text'] != 'Valuation') {
                       Navigator.of(context)
                           .pushNamed(gridviewItems[index]['navigation']);
-                    } else {
-                      null;
-                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -80,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Container(
                             padding: index != 4
-                                ? EdgeInsets.only(top: 10, left: 10)
+                                ? const EdgeInsets.only(top: 10, left: 10)
                                 : null,
                             decoration: index != 4
                                 ? BoxDecoration(

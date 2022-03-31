@@ -24,22 +24,21 @@ class AgentListingScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: hextocolor('#F6CFCD')),
-                    child: Image(
+                    child: const Image(
                         image:
                             AssetImage('assets/images/agentlistingmain.png')))),
             Expanded(
                 child: Column(
               children: [
-                Spacer(),
+                const Spacer(),
                 Text(
                   'List your property to thousands of potential clients, find quality buyers, sellers and renters.',
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 20,
                       ),
                 ),
-                Spacer(),
-                Container(
-                  child: Column(
+                const Spacer(),
+                 Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -51,7 +50,7 @@ class AgentListingScreen extends StatelessWidget {
                           borderRadius: 10,
                           buttonText: 'Create a Free Account',
                           ontap: () {}),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       ElevatedButtonWidget(
@@ -65,8 +64,7 @@ class AgentListingScreen extends StatelessWidget {
                           ontap: () {})
                     ],
                   ),
-                ),
-                Spacer()
+                const Spacer()
               ],
             ))
           ],

@@ -1,27 +1,45 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
-import 'package:jidetaiwoapp/screens/clientsignup_screen.dart';
+import 'package:jidetaiwoapp/screens/signup_screen.dart';
 import 'package:jidetaiwoapp/screens/mydashboardscreen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 
-class ClientLoginScreen extends StatelessWidget {
-  static const routename = '/clientloginscreen';
-  const ClientLoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  static const routename = '/loginscreen';
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final appbarText = ModalRoute.of(context)!.settings.arguments as String;
+    Widget _inputForm(String label) {
+      return TextFormField(
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
+          filled: true,
+          fillColor: hextocolor('#FAFAFA'),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: const BorderSide(color: Colors.white)),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('CLIENT LOGIN', () {}),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBarWidget('${appbarText.toUpperCase()} LOGIN', () {}),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
             child: ListView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             Text(
               'Please fill in the following to Sign Up',
@@ -29,45 +47,15 @@ class ClientLoginScreen extends StatelessWidget {
               style:
                   Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
-                  filled: true,
-                  fillColor: hextocolor('#FAFAFA'),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(color: Colors.white)),
-                ),
-              ),
-            ),
-            SizedBox(
+            _inputForm('Email'),
+            const SizedBox(
               height: 20,
             ),
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
-                  filled: true,
-                  fillColor: hextocolor('#FAFAFA'),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(color: Colors.white)),
-                ),
-              ),
-            ),
-            SizedBox(
+            _inputForm('Password'),
+            const SizedBox(
               height: 60,
             ),
             ElevatedButtonWidget(
@@ -80,25 +68,26 @@ class ClientLoginScreen extends StatelessWidget {
                 },
                 textColor: Colors.white,
                 bgColor: Theme.of(context).primaryColor),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             RichText(
+              textAlign: TextAlign.center,
               text: TextSpan(
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
                       .copyWith(fontSize: 18),
                   children: [
-                    TextSpan(text: 'New user ? Click '),
+                    const TextSpan(text: 'New user ? Click '),
                     TextSpan(
                         text: 'Here',
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.of(context)
-                              .pushNamed(ClientSignupScreen.routename),
+                              .pushNamed(SignupScreen.routename, arguments: appbarText),
                         style:
                             TextStyle(color: Theme.of(context).primaryColor)),
-                    TextSpan(text: ' to Sign Up')
+                    const TextSpan(text: ' to Sign Up')
                   ]),
             )
           ],

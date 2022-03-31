@@ -10,7 +10,7 @@ class AuctionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppBarWidget('Auctions', () {}),
       ),
       body: Column(
@@ -18,7 +18,7 @@ class AuctionScreen extends StatelessWidget {
           Expanded(
             child: Container(
               width: double.infinity,
-              child: Image(image: AssetImage('assets/images/onb3img.png'))),
+              child: const Image(image: AssetImage('assets/images/onb3img.png'))),
           ),
           Expanded(child: Text('Coming soon...', style: Theme.of(context).textTheme.bodyText1!.copyWith(
             fontSize: 24,
