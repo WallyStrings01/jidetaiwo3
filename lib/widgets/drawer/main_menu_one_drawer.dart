@@ -17,11 +17,13 @@ class MenuMenuOneDrawer extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context)
                     .pushNamed(FacilityManagementScreen.routename);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -43,11 +45,12 @@ class MenuMenuOneDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context)
                     .pushNamed(ProjectManagementScreen.routename);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -69,11 +72,12 @@ class MenuMenuOneDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context)
-                    .pushNamed(PublicSectorScreen.routename);
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed(PublicSectorScreen.routename);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -95,11 +99,12 @@ class MenuMenuOneDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context)
-                    .pushNamed(AdvisoryScreen.routename);
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed(AdvisoryScreen.routename);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),

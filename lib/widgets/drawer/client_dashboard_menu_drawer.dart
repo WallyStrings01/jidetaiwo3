@@ -18,6 +18,7 @@ class ClientDashboradMenuDrawer extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context)
                     .pushNamed(DashboardScreen.routename);
               },
@@ -44,6 +45,7 @@ class ClientDashboradMenuDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context)
                     .pushNamed(PropertiesScreen.routename);
               },
@@ -70,6 +72,7 @@ class ClientDashboradMenuDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context)
                     .pushNamed(ProfileScreen.routename);
               },
@@ -96,6 +99,7 @@ class ClientDashboradMenuDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context)
                     .pushNamed(ComplaintsScreen.routename);
               },
@@ -122,6 +126,7 @@ class ClientDashboradMenuDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context)
                     .pushNamed(ChangePasswordScreen.routename);
               },
@@ -147,7 +152,7 @@ class ClientDashboradMenuDrawer extends StatelessWidget {
               height: 40,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),

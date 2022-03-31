@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize:const Size.fromHeight(kToolbarHeight),
         child: Builder(
           builder: (context) => AppBarWidget('JIDE TAIWO & CO.', () {
             Scaffold.of(context).openEndDrawer();
