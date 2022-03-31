@@ -17,7 +17,7 @@ import 'package:jidetaiwoapp/screens/exploreproperty_screen.dart';
 import 'package:jidetaiwoapp/screens/facility_management_screen.dart';
 import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
 import 'package:jidetaiwoapp/screens/home_screen.dart';
-import 'package:jidetaiwoapp/screens/mydashboardscreen.dart';
+import 'package:jidetaiwoapp/screens/agent_dashboard_screen.dart';
 import 'package:jidetaiwoapp/screens/onboarding_screen.dart';
 import 'package:jidetaiwoapp/screens/profile_screen.dart';
 import 'package:jidetaiwoapp/screens/project_management_screen.dart';
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
               button: TextStyle(
                   fontFamily: 'Roboto', fontSize: 18, color: Colors.white)),
         ),
-        home: const ExplorePropertyScreen(),
+        home: const SplashScreen(),
         routes: {
           AboutusScreen.routename: (ctx) => AboutusScreen(),
           AgencyScreen.routename: (ctx) => AgencyScreen(),
@@ -76,11 +76,20 @@ class MyApp extends StatelessWidget {
           DashboardScreen.routename: (ctx) => DashboardScreen(),
           ExplorePropertyScreen.routename: (ctx) => ExplorePropertyScreen(),
           HomeScreen.routename: (ctx) => HomeScreen(),
-          MydashboardScreen.routename: (ctx) => MydashboardScreen(),
+          AgentdashboardScreen.routename: (ctx) => AgentdashboardScreen(),
           OnboardingScreen.routename: (ctx) => OnboardingScreen(),
           SearchforpropertyScreen.routename: (ctx) => SearchforpropertyScreen(),
           GetInTouchScreen.routename : (ctx) => GetInTouchScreen(),
-          ValuationScreen.routename: (ctx) => ValuationScreen()
+          ValuationScreen.routename: (ctx) => ValuationScreen(),
+          FacilityManagementScreen.routename : (ctx) => FacilityManagementScreen(),
+          ProjectManagementScreen.routename : (ctx) => ProjectManagementScreen(),
+          PublicSectorScreen.routename : (ctx) => PublicSectorScreen(),
+          AdvisoryScreen.routename : (ctx) => AdvisoryScreen(),
+          PropertiesScreen.routename : (ctx) => PropertiesScreen(),
+          ProfileScreen.routename : (ctx) => ProfileScreen(),
+          ComplaintsScreen.routename : (ctx) => ProfileScreen(),
+          ChangePasswordScreen.routename : (ctx) => ChangePasswordScreen(),
+          ClientDashboardScreen.routename : (ctx) => ClientDashboardScreen()
         },
       ),
     );

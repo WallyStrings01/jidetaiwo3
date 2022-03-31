@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/screens/signup_screen.dart';
-import 'package:jidetaiwoapp/screens/mydashboardscreen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 
@@ -63,9 +62,7 @@ class LoginScreen extends StatelessWidget {
                 height: 51,
                 buttonText: 'Login',
                 borderRadius: 8,
-                ontap: () {
-                  Navigator.of(context).pushNamed(MydashboardScreen.routename);
-                },
+                ontap: () {},
                 textColor: Colors.white,
                 bgColor: Theme.of(context).primaryColor),
             const SizedBox(

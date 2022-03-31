@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/screens/agent_dashboard_screen.dart';
+import 'package:jidetaiwoapp/screens/client_dashboard_screen.dart';
 import 'package:jidetaiwoapp/screens/login_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 
@@ -24,7 +26,7 @@ class DashboardScreen extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.of(context)
-                    .pushNamed(LoginScreen.routename, arguments: 'client');
+                    .pushNamed(ClientDashboardScreen.routename);
               },
               child: Container(
                 width: double.infinity,
@@ -45,7 +47,7 @@ class DashboardScreen extends StatelessWidget {
             GestureDetector(
               onTap: (){
                 Navigator.of(context)
-                    .pushNamed(LoginScreen.routename, arguments: 'agent');
+                    .pushNamed(AgentdashboardScreen.routename);
               },
               child: Container(
                 width: double.infinity,

@@ -5,9 +5,9 @@ import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:jidetaiwoapp/widgets/drawer/main_menu_two_drawer.dart';
 
-class MydashboardScreen extends StatelessWidget {
+class AgentdashboardScreen extends StatelessWidget {
   static const routename = '/mydashboardscreen';
-  const MydashboardScreen({Key? key}) : super(key: key);
+  const AgentdashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

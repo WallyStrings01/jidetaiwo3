@@ -3,6 +3,7 @@ import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/provider/advisory_consultancy_provider.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
 
 class AdvisoryScreen extends StatelessWidget {
   static const routename = '/advisoryscreen';
@@ -14,6 +15,8 @@ class AdvisoryScreen extends StatelessWidget {
       appBar: PreferredSize(
           child: AppBarWidget('Advisory & Consultancy', () {}),
           preferredSize: const Size.fromHeight(kToolbarHeight)),
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: const MenuMenuOneDrawer(),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ListView.builder(

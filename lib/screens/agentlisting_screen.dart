@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/screens/login_screen.dart';
+import 'package:jidetaiwoapp/screens/signup_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 
@@ -22,8 +24,7 @@ class AgentListingScreen extends StatelessWidget {
             Expanded(
                 child: Container(
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: hextocolor('#F6CFCD')),
+                        shape: BoxShape.circle, color: hextocolor('#F6CFCD')),
                     child: const Image(
                         image:
                             AssetImage('assets/images/agentlistingmain.png')))),
@@ -38,32 +39,39 @@ class AgentListingScreen extends StatelessWidget {
                       ),
                 ),
                 const Spacer(),
-                 Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ElevatedButtonWidget(
-                          width: double.infinity,
-                          height: 48,
-                          bgColor: Theme.of(context).primaryColor,
-                          textColor: Colors.white,
-                          borderRadius: 10,
-                          buttonText: 'Create a Free Account',
-                          ontap: () {}),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      ElevatedButtonWidget(
-                          width: double.infinity,
-                          height: 48,
-                          borderRadius: 10,
-                          bgColor: Colors.white,
-                          borderColor: Theme.of(context).primaryColor,
-                          textColor: Theme.of(context).primaryColor,
-                          buttonText: 'Sign In',
-                          ontap: () {})
-                    ],
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButtonWidget(
+                        width: double.infinity,
+                        height: 48,
+                        bgColor: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                        borderRadius: 10,
+                        buttonText: 'Create a Free Account',
+                        ontap: () {
+                          Navigator.of(context).pushNamed(
+                              SignupScreen.routename,
+                              arguments: 'agent');
+                        }),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    ElevatedButtonWidget(
+                        width: double.infinity,
+                        height: 48,
+                        borderRadius: 10,
+                        bgColor: Colors.white,
+                        borderColor: Theme.of(context).primaryColor,
+                        textColor: Theme.of(context).primaryColor,
+                        buttonText: 'Sign In',
+                        ontap: () {
+                          Navigator.of(context).pushNamed(LoginScreen.routename,
+                              arguments: 'agent');
+                        })
+                  ],
+                ),
                 const Spacer()
               ],
             ))

@@ -5,6 +5,7 @@ import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/client_dashboard_datatable_widget.dart';
 
 class ClientDashboardScreen extends StatelessWidget {
+  static const routename = '/clientdashboardscreen';
   const ClientDashboardScreen({Key? key}) : super(key: key);
 
   @override
@@ -22,8 +23,8 @@ class ClientDashboardScreen extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 30),
-                padding:
-                    const EdgeInsets.only(top: 20, bottom: 50, left: 20, right: 20),
+                padding: const EdgeInsets.only(
+                    top: 20, bottom: 50, left: 20, right: 20),
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(15)),

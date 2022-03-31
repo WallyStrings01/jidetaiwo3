@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
       {
         'image': 'assets/icons/clientlogin.png',
         'text': 'Client Login',
-        'navigation': DashboardScreen.routename
+        'navigation': LoginScreen.routename
       },
       {
         'image': 'assets/icons/saleauctions.png',
@@ -37,8 +37,16 @@ class HomeScreen extends StatelessWidget {
         'text': 'Agent Property Listing',
         'navigation': AgentListingScreen.routename
       },
-      {'image': 'assets/icons/contactus.png', 'text': 'Contact Us', 'navigation' : GetInTouchScreen.routename},
-      {'image': 'assets/icons/valuation.png', 'text': 'Valuation', 'navigation' : ValuationScreen.routename}
+      {
+        'image': 'assets/icons/contactus.png',
+        'text': 'Contact Us',
+        'navigation': GetInTouchScreen.routename
+      },
+      {
+        'image': 'assets/icons/valuation.png',
+        'text': 'Valuation',
+        'navigation': ValuationScreen.routename
+      }
     ];
 
     return Scaffold(
@@ -63,8 +71,15 @@ class HomeScreen extends StatelessWidget {
                 mainAxisSpacing: 30),
             itemBuilder: (ctx, index) => GestureDetector(
                   onTap: () {
+                    if (gridviewItems[index]['navigation'] !=
+                        LoginScreen.routename) {
                       Navigator.of(context)
                           .pushNamed(gridviewItems[index]['navigation']);
+                    } else {
+                      Navigator.of(context).pushNamed(
+                          gridviewItems[index]['navigation'],
+                          arguments: 'client');
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
 
 import '../widgets/appbar_widget.dart';
 
@@ -56,6 +57,8 @@ class ProjectManagementScreen extends StatelessWidget {
         appBar: PreferredSize(
             child: AppBarWidget('Facility Management', () {}),
             preferredSize: const Size.fromHeight(kToolbarHeight)),
+        endDrawerEnableOpenDragGesture: false,
+        endDrawer: const MenuMenuOneDrawer(),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
