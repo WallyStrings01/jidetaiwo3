@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/screens/advisory_screen.dart';
 import 'package:jidetaiwoapp/screens/facility_management_screen.dart';
+import 'package:jidetaiwoapp/screens/home_screen.dart';
 import 'package:jidetaiwoapp/screens/project_management_screen.dart';
 import 'package:jidetaiwoapp/screens/public_sector_screen.dart';
 
@@ -18,8 +19,14 @@ class MenuMenuOneDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context)
-                    .pushNamed(FacilityManagementScreen.routename);
+                if (ModalRoute.of(context)!.settings.name !=
+                    HomeScreen.routename) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(FacilityManagementScreen.routename);
+                } else {
+                  Navigator.of(context)
+                      .pushNamed(FacilityManagementScreen.routename);
+                }
               },
               child: Container(
                 padding:
@@ -46,8 +53,14 @@ class MenuMenuOneDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context)
-                    .pushNamed(ProjectManagementScreen.routename);
+                if (ModalRoute.of(context)!.settings.name !=
+                    HomeScreen.routename) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(ProjectManagementScreen.routename);
+                } else {
+                  Navigator.of(context)
+                      .pushNamed(ProjectManagementScreen.routename);
+                }
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -73,7 +86,13 @@ class MenuMenuOneDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamed(PublicSectorScreen.routename);
+                if (ModalRoute.of(context)!.settings.name !=
+                    HomeScreen.routename) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(PublicSectorScreen.routename);
+                } else {
+                  Navigator.of(context).pushNamed(PublicSectorScreen.routename);
+                }
               },
               child: Container(
                 padding:
@@ -100,7 +119,13 @@ class MenuMenuOneDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamed(AdvisoryScreen.routename);
+                if (ModalRoute.of(context)!.settings.name !=
+                    HomeScreen.routename) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(AdvisoryScreen.routename);
+                } else {
+                  Navigator.of(context).pushNamed(AdvisoryScreen.routename);
+                }
               },
               child: Container(
                 padding:
