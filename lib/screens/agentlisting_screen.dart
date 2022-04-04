@@ -4,6 +4,7 @@ import 'package:jidetaiwoapp/screens/login_screen.dart';
 import 'package:jidetaiwoapp/screens/signup_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
 
 class AgentListingScreen extends StatelessWidget {
   static const routename = '/agenctlistingscreen';
@@ -13,10 +14,12 @@ class AgentListingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('JIDE TAIWO & CO.', () {}),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: AppBarWidget('JIDE TAIWO & CO. ')
       ),
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: const MenuMenuOneDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(

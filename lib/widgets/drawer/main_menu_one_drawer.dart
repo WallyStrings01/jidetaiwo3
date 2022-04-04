@@ -18,15 +18,35 @@ class MenuMenuOneDrawer extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
-                if (ModalRoute.of(context)!.settings.name !=
-                    HomeScreen.routename) {
-                  Navigator.of(context)
-                      .pushReplacementNamed(FacilityManagementScreen.routename);
-                } else {
-                  Navigator.of(context)
-                      .pushNamed(FacilityManagementScreen.routename);
-                }
+                Navigator.of(context).pushReplacementNamed(HomeScreen.routename,
+                    arguments: false);
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Colors.white,
+                    )),
+                child: Text(
+                  'HOME',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 14, color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(FacilityManagementScreen.routename);
               },
               child: Container(
                 padding:
@@ -52,15 +72,8 @@ class MenuMenuOneDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
-                if (ModalRoute.of(context)!.settings.name !=
-                    HomeScreen.routename) {
-                  Navigator.of(context)
-                      .pushReplacementNamed(ProjectManagementScreen.routename);
-                } else {
-                  Navigator.of(context)
-                      .pushNamed(ProjectManagementScreen.routename);
-                }
+                Navigator.of(context)
+                    .pushReplacementNamed(ProjectManagementScreen.routename);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -85,14 +98,8 @@ class MenuMenuOneDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
-                if (ModalRoute.of(context)!.settings.name !=
-                    HomeScreen.routename) {
-                  Navigator.of(context)
-                      .pushReplacementNamed(PublicSectorScreen.routename);
-                } else {
-                  Navigator.of(context).pushNamed(PublicSectorScreen.routename);
-                }
+                Navigator.of(context)
+                    .pushReplacementNamed(PublicSectorScreen.routename);
               },
               child: Container(
                 padding:
@@ -118,14 +125,8 @@ class MenuMenuOneDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
-                if (ModalRoute.of(context)!.settings.name !=
-                    HomeScreen.routename) {
-                  Navigator.of(context)
-                      .pushReplacementNamed(AdvisoryScreen.routename);
-                } else {
-                  Navigator.of(context).pushNamed(AdvisoryScreen.routename);
-                }
+                Navigator.of(context)
+                    .pushReplacementNamed(AdvisoryScreen.routename);
               },
               child: Container(
                 padding:

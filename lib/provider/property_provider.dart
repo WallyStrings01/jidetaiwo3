@@ -1,26 +1,52 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/model/property_model.dart';
+import 'package:http/http.dart' as http;
 
 class PropertyProvider extends ChangeNotifier {
-  final List<Property> _propertiesData = [
-    Property(
-      imageUrl: 'assets/images/landproperty.png',
-      description: 'A Three (3) bedroom bungalow with mini 3 bedroom bungalow fenced round with gate, built on one full plot of land',
-      officeId: 'SL|ILO|206|37|1', 
-      location: 'ilorin', 
-      branch: 'ilorin branch', 
-      price: 16000, 
-      contract: 'sale', 
-      numberOfRooms: 3, 
-      status: 'available', 
-      area: 450, 
-      numberOfBathrooms: 4, 
-      numberOfViews: 5, 
-      balcony: true, 
-      parking: true)
-  ];
+  List<Property> _propertiesData = [];
 
   List<Property> get getPropertiesData {
     return [..._propertiesData];
+  }
+
+  Future<void> fetchListOfProperties() async {
+    if (_propertiesData.isEmpty) {
+      try {
+        HttpClient httpClient = HttpClient();
+        HttpClientRequest request = await httpClient.getUrl(Uri.parse(
+            'https://jidetaiwoandco.com/mailsolution/propertylistingauthapi.php'));
+        request.headers.set('Content-type', 'application/json');
+        HttpClientResponse response = await request.close();
+        String reply = await response.transform(utf8.decoder).join();
+        var extractedData = json.decode(reply) as List<dynamic>;
+        httpClient.close();
+        List<Property> loadedProperties = [];
+        for (var data in extractedData) {
+          loadedProperties.add(Property(
+              id: data['id'],
+              description: data['propertydescription'],
+              officeId: data['ref'],
+              location: data['location'],
+              branch: data['branch'],
+              price: double.parse(data['propertyprice']),
+              contract: data['propertycontract'],
+              numberOfRooms: data['bedroom'],
+              status: data['propertystatus'],
+              area: data['propertydimension'],
+              numberOfBathrooms: data['bathroom'],
+              numberOfViews: 5,
+              balcony: true,
+              parking: true));
+        }
+        _propertiesData = loadedProperties;
+        notifyListeners();
+      } catch (error) {
+        rethrow;
+      }
+    } else {
+      return;
+    }
   }
 }

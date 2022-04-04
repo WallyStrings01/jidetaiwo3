@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/provider/advisory_consultancy_provider.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
@@ -15,13 +16,13 @@ class AdvisoryScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
-          builder: (context) => AppBarWidget('Advisory & Consultancy', () {
-            Scaffold.of(context).openEndDrawer();
+          builder: (context) => AppBarTwoWidget('Advisory & Consultancy', () {
+            Scaffold.of(context).openDrawer();
           }),
         ),
       ),
-      endDrawerEnableOpenDragGesture: false,
-      endDrawer: const MenuMenuOneDrawer(),
+      drawerEnableOpenDragGesture: false,
+      drawer: const MenuMenuOneDrawer(),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ListView.builder(
@@ -73,7 +74,6 @@ class AdvisoryScreen extends StatelessWidget {
                   ),
                 );
               })),
-      bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }

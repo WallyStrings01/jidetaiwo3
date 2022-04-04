@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
-  const BottomNavigationWidget({Key? key}) : super(key: key);
+  final Function onTap;
+  final int index;
+  BottomNavigationWidget(@required this.onTap, @required this.index, {Key? key})
+      : super(key: key);
 
   @override
   State<BottomNavigationWidget> createState() => _BottomNavigationWidgetState();
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  int navigationBarCurrentIndex = 0;
-
-  
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -19,14 +19,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         unselectedItemColor: hextocolor('#585454'),
         elevation: 0,
         type: BottomNavigationBarType.fixed,
-        currentIndex: navigationBarCurrentIndex,
+        currentIndex: widget.index,
         backgroundColor: hextocolor('#FDEFED'),
-        onTap: (index) {
-          setState(() {
-            navigationBarCurrentIndex = index;
-          });
-        },
-        items: [
+        onTap: (index) => widget.onTap(index),
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,

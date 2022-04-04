@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 
 import '../hextocolor.dart';
 
-class ProfileScreen extends StatefulWidget {
+class EditProfileScreen extends StatefulWidget {
   static const routename = '/profilescreen';
-  const ProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({Key? key}) : super(key: key);
   
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller1 =
       TextEditingController(text: 'Oluwajuwon Smith');
@@ -60,8 +62,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          child: AppBarWidget('My Profile', () {}),
-          preferredSize: const Size.fromHeight(kToolbarHeight)),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Builder(
+          builder: (context) => AppBarWidget('Edit Profile'),
+        ),
+      ),
+      drawerEnableOpenDragGesture: false,
+      drawer: const ClientDashboradMenuDrawer(),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           child: Column(
@@ -110,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   bgColor: Theme.of(context).primaryColor),
             ],
           )),
-      bottomNavigationBar: const BottomNavigationWidget(),
+      //bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }

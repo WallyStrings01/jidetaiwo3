@@ -1,31 +1,38 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/model/client_dashboard_model.dart';
+import 'package:http/http.dart' as http;
 
 class ClientDashboardProvider extends ChangeNotifier {
-  final List<ClientDashboard> _clientDashboard = [
-    ClientDashboard(
-      property: 'Detached house', 
-      type: 'Lease', 
-      active: true, 
-      contract: true),
-    ClientDashboard(
-        property: '5 bedroom house with 2 rooms BQ',
-        type: 'Lease',
-        active: true,
-        contract: true),
-    ClientDashboard(
-        property: 'Detached house',
-        type: 'Lease',
-        active: true,
-        contract: true),
-    ClientDashboard(
-        property: '5 bedroom house with 2 rooms BQ',
-        type: 'Lease',
-        active: true,
-        contract: true),
-  ];
+  List<ClientDashboard> _clientDashboard = [];
 
   List<ClientDashboard> get getClientDashboardData {
     return [..._clientDashboard];
+  }
+
+  Future<void> fetchClientDashboardInformation() async {
+    try {
+      HttpClient httpClient = HttpClient();
+      HttpClientRequest request = await httpClient.getUrl(Uri.parse(
+          'https://jidetaiwoandco.com/mailsolution/propertybriefauthapi.php?client=150'));
+      request.headers.set('Content-type', 'application/json');
+      HttpClientResponse response = await request.close();
+      String reply = await response.transform(utf8.decoder).join();
+      var extractedData = json.decode(reply) as List<dynamic>;
+      List<ClientDashboard> loadedClientDashboardInfo = [];
+      for(var clientInfo in extractedData){
+         loadedClientDashboardInfo.add(ClientDashboard(
+            property: clientInfo['title'],
+            type: clientInfo['propertytype'],
+            tenancy: clientInfo['propertystatus'],
+            contract: clientInfo['propertycontract']));
+      }
+      httpClient.close();
+      _clientDashboard = loadedClientDashboardInfo;
+    } catch (error) {
+      rethrow;
+    }
   }
 }

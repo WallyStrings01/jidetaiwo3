@@ -13,7 +13,7 @@ class ValuationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-            child: AppBarWidget('Valuation', () {}),
+            child: AppBarWidget('Valuation'),
             preferredSize: const Size.fromHeight(kToolbarHeight)),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -68,7 +68,8 @@ class ValuationScreen extends StatelessWidget {
                       ],
                     ),
                   );
-                })),
-        bottomNavigationBar: const BottomNavigationWidget());
+                }))
+        //bottomNavigationBar: const BottomNavigationWidget()
+        );
   }
 }

@@ -39,6 +39,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
         children: [
           Expanded(
               child: Container(
+                margin: EdgeInsets.only(top: 50),
                   child: Image(
             image: AssetImage(widget.imgText),
             fit: BoxFit.cover,
@@ -107,8 +108,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                             setState(() {
                               widget.pageController.animateToPage(
                                   (widget.screenIndex + 1),
-                                  duration: Duration(milliseconds: 200),
-                                  curve: Curves.easeIn);
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeOut);
                             });
                           },
                           buttonText:
@@ -122,8 +123,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 setState(() {
                                   widget.pageController.animateToPage(
                                       (widget.screenIndex - 1),
-                                      duration: Duration(milliseconds: 200),
-                                      curve: Curves.easeIn);
+                                      duration: const Duration(milliseconds: 300),
+                                      curve: Curves.easeOut);
                                 });
                               },
                               child: Text(

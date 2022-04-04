@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 
 class PropertiesScreen extends StatelessWidget {
   static const routename = '/propertiesscsreen';
@@ -80,8 +82,14 @@ class PropertiesScreen extends StatelessWidget {
       backgroundColor: hextocolor('#E5E5E5'),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('My Properties', () {}),
+        child: Builder(
+          builder: (context) => AppBarTwoWidget('My Properties', () {
+            Scaffold.of(context).openDrawer();
+          }),
+        ),
       ),
+      drawerEnableOpenDragGesture: false,
+      drawer: const ClientDashboradMenuDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -130,7 +138,7 @@ class PropertiesScreen extends StatelessWidget {
                       ))
                     ],
                     rows: List.generate(
-                      6,
+                      20,
                       (index) => DataRow(
                           cells: List.generate(
                               5, (index) => DataCell(_datarows[index]))),
@@ -140,7 +148,7 @@ class PropertiesScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavigationWidget(),
+      //bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
@@ -16,54 +17,19 @@ class ProjectManagementScreen extends StatelessWidget {
         'image' : 'assets/images/Project_Management.png',
         'text' : 'Our team of project development and management include professionals in the building industry. '
       },
-      {
-        'title': 'Project Management & Development Services',
-        'image': 'assets/images/Project_Management.png',
-        'text':
-            'Our team of project development and management include professionals in the building industry. '
-      },
-      {
-        'title': 'Project Management & Development Services',
-        'image': 'assets/images/Project_Management.png',
-        'text':
-            'Our team of project development and management include professionals in the building industry. '
-      },
-      {
-        'title': 'Project Management & Development Services',
-        'image': 'assets/images/Project_Management.png',
-        'text':
-            'Our team of project development and management include professionals in the building industry. '
-      },
-      {
-        'title': 'Project Management & Development Services',
-        'image': 'assets/images/Project_Management.png',
-        'text':
-            'Our team of project development and management include professionals in the building industry. '
-      },
-      {
-        'title': 'Project Management & Development Services',
-        'image': 'assets/images/Project_Management.png',
-        'text':
-            'Our team of project development and management include professionals in the building industry. '
-      },
-      {
-        'title': 'Project Management & Development Services',
-        'image': 'assets/images/Project_Management.png',
-        'text':
-            'Our team of project development and management include professionals in the building industry. '
-      },
     ];
+    
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Builder(
-            builder: (context) => AppBarWidget('Project Management', () {
-              Scaffold.of(context).openEndDrawer();
+            builder: (context) => AppBarTwoWidget('Project Management', () {
+              Scaffold.of(context).openDrawer();
             }),
           ),
         ),
-        endDrawerEnableOpenDragGesture: false,
-        endDrawer: const MenuMenuOneDrawer(),
+        drawerEnableOpenDragGesture: false,
+        drawer: const MenuMenuOneDrawer(),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
@@ -140,7 +106,6 @@ class ProjectManagementScreen extends StatelessWidget {
                       ),
                     );
                   }
-                })),
-        bottomNavigationBar: const BottomNavigationWidget());
+                })),);
   }
 }

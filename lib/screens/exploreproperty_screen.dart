@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
-import 'package:jidetaiwoapp/model/property_model.dart';
 import 'package:jidetaiwoapp/provider/property_provider.dart';
 import 'package:jidetaiwoapp/screens/searchforproperty_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/widgets/property_image_widget.dart';
 import 'package:provider/provider.dart';
 
 class ExplorePropertyScreen extends StatefulWidget {
@@ -39,13 +39,13 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
     }
   }
 
-  Widget _fourContainers(IconData icon, String label, Color bgColor, Color textColor) {
+  Widget _fourContainers(
+      IconData icon, String label, Color bgColor, Color textColor) {
     return Container(
       height: 46,
       width: (MediaQuery.of(context).size.width / 2) - 35.0,
       decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(10)),
+          color: bgColor, borderRadius: BorderRadius.circular(10)),
       alignment: Alignment.center,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,10 +59,10 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
           const SizedBox(width: 7),
           Text(
             label,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: 14,
-                  color: textColor
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1!
+                .copyWith(fontSize: 14, color: textColor),
           )
         ],
       ),
@@ -71,32 +71,14 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _propertiesData =
-        Provider.of<PropertyProvider>(context).getPropertiesData;
-
-    List<Property> _propertiesList = [];
-    _propertiesData.forEach((property) {
-      _propertiesList.add(Property(
-          imageUrl: property.imageUrl,
-          description: property.description,
-          officeId: property.officeId,
-          location: property.location,
-          branch: property.branch,
-          price: property.price,
-          contract: property.contract,
-          numberOfRooms: property.numberOfRooms,
-          status: property.status,
-          area: property.area,
-          numberOfBathrooms: property.numberOfBathrooms,
-          numberOfViews: property.numberOfViews,
-          balcony: property.balcony,
-          parking: property.parking));
-    });
-
+    final propertiesData =
+        Provider.of<PropertyProvider>(context, listen: false).getPropertiesData;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('Explore our properties', () {}),
+        child: Builder(
+          builder: (context) => const AppBarWidget('Explore our properties'),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -116,7 +98,10 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                 suffixIcon: const Icon(Icons.search),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6),
-                    borderSide: BorderSide(color: Colors.white)),
+                    borderSide: const BorderSide(color: Colors.white)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6),
+                    borderSide: const BorderSide(color: Colors.blue)),
               ),
             ),
             const SizedBox(
@@ -124,17 +109,14 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
             ),
             Expanded(
                 child: ListView.builder(
-                    itemCount: _propertiesList.length,
+                    itemCount: propertiesData.length,
                     itemBuilder: (ctx, index) => Column(
                           children: [
-                            Image.asset(
-                              _propertiesList[index].imageUrl!,
-                              fit: BoxFit.cover,
-                            ),
+                            PropertyImageWidget(id: propertiesData[index].id!),
                             const SizedBox(
                               height: 15,
                             ),
-                            Text(_propertiesList[index].description!,
+                            Text(propertiesData[index].description!,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
@@ -150,22 +132,28 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                               child: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Office ID: ${_propertiesList[index].officeId}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Office ID: ${propertiesData[index].officeId}',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       ),
-                                      Text(
-                                        'Location: ${_propertiesList[index].location![0].toUpperCase()}${_propertiesList[index].location!.substring(1)}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Location: ${propertiesData[index].location}',
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       )
                                     ],
                                   ),
@@ -173,22 +161,26 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     height: 15,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'Branch: ${_propertiesList[index].branch![0].toUpperCase()}${_propertiesList[index].branch!.substring(1)}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Branch: ${propertiesData[index].branch}',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       ),
-                                      Text(
-                                        'Price: ${value.format(_propertiesList[index].price!.toInt())}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Price: ${value.format(propertiesData[index].price!.toInt())}',
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       )
                                     ],
                                   ),
@@ -196,22 +188,26 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     height: 15,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'Contract: ${_propertiesList[index].contract![0].toUpperCase()}${_propertiesList[index].contract!.substring(1)}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Contract: ${propertiesData[index].contract}',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       ),
-                                      Text(
-                                        'Rooms: ${_propertiesList[index].numberOfRooms}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Rooms: ${propertiesData[index].numberOfRooms}',
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       )
                                     ],
                                   ),
@@ -219,22 +215,26 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     height: 15,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'Status: ${_propertiesList[index].status![0].toUpperCase()}${_propertiesList[index].status!.substring(1)}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Status: ${propertiesData[index].status}',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       ),
-                                      Text(
-                                        'Area: ${_propertiesList[index].area!.toInt()} Sq. mtr',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Area: ${propertiesData[index].area}',
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       )
                                     ],
                                   ),
@@ -242,36 +242,41 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     height: 15,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'Bathrooms: ${_propertiesList[index].numberOfBathrooms}',
-                                        style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            color: hextocolor('#5694C1')),
+                                      Expanded(
+                                        child: Text(
+                                          'Bathrooms: ${propertiesData[index].numberOfBathrooms}',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
+                                        ),
                                       ),
-                                      if (_propertiesList[index].balcony ==
-                                          true)
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.check_circle,
-                                              size: 18,
-                                              color: hextocolor('#5694C1'),
-                                            ),
-                                            const SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              'Balcony',
-                                              style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 14,
-                                                  color: hextocolor('#5694C1')),
-                                            )
-                                          ],
+                                      if (propertiesData[index].balcony == true)
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Icon(
+                                                Icons.check_circle,
+                                                size: 18,
+                                                color: hextocolor('#5694C1'),
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                'Balcony',
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 14,
+                                                    color:
+                                                        hextocolor('#5694C1')),
+                                              )
+                                            ],
+                                          ),
                                         )
                                     ],
                                   ),
@@ -279,34 +284,14 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     height: 15,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.remove_red_eye,
-                                            size: 18,
-                                            color: hextocolor('#5694C1'),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            '${_propertiesList[index].numberOfViews} views',
-                                            style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 14,
-                                                color: hextocolor('#5694C1')),
-                                          )
-                                        ],
-                                      ),
-                                      if (_propertiesList[index].parking ==
-                                          true)
-                                        Row(
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             Icon(
-                                              Icons.check_circle,
+                                              Icons.remove_red_eye,
                                               size: 18,
                                               color: hextocolor('#5694C1'),
                                             ),
@@ -314,13 +299,39 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                               width: 5,
                                             ),
                                             Text(
-                                              'parking',
+                                              '${propertiesData[index].numberOfViews} views',
                                               style: TextStyle(
                                                   fontFamily: 'Roboto',
                                                   fontSize: 14,
                                                   color: hextocolor('#5694C1')),
                                             )
                                           ],
+                                        ),
+                                      ),
+                                      if (propertiesData[index].parking == true)
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Icon(
+                                                Icons.check_circle,
+                                                size: 18,
+                                                color: hextocolor('#5694C1'),
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                'parking',
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 14,
+                                                    color:
+                                                        hextocolor('#5694C1')),
+                                              )
+                                            ],
+                                          ),
                                         )
                                     ],
                                   )
@@ -333,8 +344,13 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _fourContainers(Icons.share, 'Share property', hextocolor('#E1E1E1'), Colors.black),
-                                _fourContainers(Icons.favorite_outline, 'Add to Favourites', hextocolor('#FDEFED'), hextocolor('#EC5757'))
+                                _fourContainers(Icons.share, 'Share property',
+                                    hextocolor('#E1E1E1'), Colors.black),
+                                _fourContainers(
+                                    Icons.favorite_outline,
+                                    'Add to Favourites',
+                                    hextocolor('#FDEFED'),
+                                    hextocolor('#EC5757'))
                               ],
                             ),
                             const SizedBox(
@@ -343,8 +359,16 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _fourContainers(Icons.call, 'Give us a call', hextocolor('#F2FFF3'), hextocolor('#247828')),
-                                _fourContainers(Icons.mail, 'Send a message', hextocolor('#FFFAEC'), hextocolor('#CF9B14'))
+                                _fourContainers(
+                                    Icons.call,
+                                    'Give us a call',
+                                    hextocolor('#F2FFF3'),
+                                    hextocolor('#247828')),
+                                _fourContainers(
+                                    Icons.mail,
+                                    'Send a message',
+                                    hextocolor('#FFFAEC'),
+                                    hextocolor('#CF9B14'))
                               ],
                             ),
                             const SizedBox(

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
 class Property {
-  final String? imageUrl;
+  final String? id;
   final String? description;
   final String? officeId;
   final String? location;
   final String? branch;
   final double? price;
   final String? contract;
-  final int? numberOfRooms;
+  final String? numberOfRooms;
   final String? status;
-  final double? area;
-  final int? numberOfBathrooms;
+  final String? area;
+  final String? numberOfBathrooms;
   final int? numberOfViews;
   final bool? balcony;
   final bool? parking;
 
   Property(
-      {@required this.imageUrl,
+      {@required this.id,
       @required this.description,
       @required this.officeId,
       @required this.location,

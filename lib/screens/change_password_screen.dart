@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 
 import '../hextocolor.dart';
 
@@ -61,9 +63,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          child: AppBarWidget('My Profile', () {}),
-          preferredSize: const Size.fromHeight(kToolbarHeight)),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: AppBarWidget('Change Password'),
+      ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           child: Column(
@@ -100,7 +103,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
             ],
           )),
-      bottomNavigationBar: const BottomNavigationWidget(),
+      //bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }

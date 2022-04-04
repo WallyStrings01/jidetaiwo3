@@ -15,9 +15,9 @@ class AgencyScreen extends StatelessWidget {
       {'image': 'assets/images/shortletservices.png', 'text': 'SHORTLET SERVICES'}
     ];
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: AppBarWidget('Agency', () {}),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: AppBarWidget('Agency'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -61,8 +61,9 @@ class AgencyScreen extends StatelessWidget {
                 )
             ),
           ),
-        ),
-        bottomNavigationBar: const BottomNavigationWidget());
+        )
+        // bottomNavigationBar: const BottomNavigationWidget()
+      );
   }
 }
 

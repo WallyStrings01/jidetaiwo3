@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:jidetaiwoapp/provider/facility_mgt_provider.dart';
 import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
-
-import '../widgets/appbar_widget.dart';
 
 class FacilityManagementScreen extends StatelessWidget {
   static const routename = '/facilitymanagementscreen';
@@ -17,13 +15,13 @@ class FacilityManagementScreen extends StatelessWidget {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Builder(
-            builder: (context) => AppBarWidget('Facility Management', () {
-              Scaffold.of(context).openEndDrawer();
+            builder: (context) => AppBarTwoWidget('Facility Management', () {
+              Scaffold.of(context).openDrawer();
             }),
           ),
         ),
-        endDrawerEnableOpenDragGesture: false,
-        endDrawer: const MenuMenuOneDrawer(),
+        drawerEnableOpenDragGesture: false,
+        drawer: const MenuMenuOneDrawer(),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
@@ -102,7 +100,6 @@ class FacilityManagementScreen extends StatelessWidget {
                   ),
                    );
                  }
-                })),
-        bottomNavigationBar: const BottomNavigationWidget());
+                })));
   }
 }

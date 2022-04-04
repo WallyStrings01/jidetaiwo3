@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/provider/client_dashboard_provider.dart';
+import 'package:jidetaiwoapp/provider/property_image_provider.dart';
 import 'package:jidetaiwoapp/provider/property_provider.dart';
 import 'package:jidetaiwoapp/screens/aboutus_screen.dart';
 import 'package:jidetaiwoapp/screens/advisory_screen.dart';
@@ -12,19 +13,19 @@ import 'package:jidetaiwoapp/screens/client_dashboard_screen.dart';
 import 'package:jidetaiwoapp/screens/login_screen.dart';
 import 'package:jidetaiwoapp/screens/signup_screen.dart';
 import 'package:jidetaiwoapp/screens/complaint_screen.dart';
-import 'package:jidetaiwoapp/screens/dashboardscreen.dart';
 import 'package:jidetaiwoapp/screens/exploreproperty_screen.dart';
 import 'package:jidetaiwoapp/screens/facility_management_screen.dart';
 import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
 import 'package:jidetaiwoapp/screens/home_screen.dart';
 import 'package:jidetaiwoapp/screens/agent_dashboard_screen.dart';
 import 'package:jidetaiwoapp/screens/onboarding_screen.dart';
-import 'package:jidetaiwoapp/screens/profile_screen.dart';
+import 'package:jidetaiwoapp/screens/edit_profile_screen.dart';
 import 'package:jidetaiwoapp/screens/project_management_screen.dart';
 import 'package:jidetaiwoapp/screens/properties_screen.dart';
 import 'package:jidetaiwoapp/screens/public_sector_screen.dart';
 import 'package:jidetaiwoapp/screens/searchforproperty_screen.dart';
 import 'package:jidetaiwoapp/screens/splash_screen.dart';
+import 'package:jidetaiwoapp/screens/splashscreen2.dart';
 import 'package:jidetaiwoapp/screens/valuation_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ClientDashboardProvider()),
-        ChangeNotifierProvider(create: (_) => PropertyProvider())
+        ChangeNotifierProvider(create: (_) => PropertyProvider()),
+        ChangeNotifierProvider(create: (_) => PropertyImageProvider()),
       ],
       child: MaterialApp(
         title: 'Jide Taiwo',
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
               button: TextStyle(
                   fontFamily: 'Roboto', fontSize: 18, color: Colors.white)),
         ),
-        home: const SplashScreen(),
+        home:  const HomeScreen(),
         routes: {
           AboutusScreen.routename: (ctx) => const AboutusScreen(),
           AgencyScreen.routename: (ctx) => const AgencyScreen(),
@@ -73,7 +75,6 @@ class MyApp extends StatelessWidget {
           AuctionScreen.routename: (ctx) => const AuctionScreen(),
           LoginScreen.routename: (ctx) => const LoginScreen(),
           SignupScreen.routename: (ctx) => const SignupScreen(),
-          DashboardScreen.routename: (ctx) => const DashboardScreen(),
           ExplorePropertyScreen.routename: (ctx) => const ExplorePropertyScreen(),
           HomeScreen.routename: (ctx) => const HomeScreen(),
           AgentdashboardScreen.routename: (ctx) => const AgentdashboardScreen(),
@@ -86,10 +87,10 @@ class MyApp extends StatelessWidget {
           PublicSectorScreen.routename : (ctx) => const PublicSectorScreen(),
           AdvisoryScreen.routename : (ctx) => const AdvisoryScreen(),
           PropertiesScreen.routename : (ctx) => const PropertiesScreen(),
-          ProfileScreen.routename : (ctx) => const ProfileScreen(),
-          ComplaintsScreen.routename : (ctx) => const ProfileScreen(),
+          ComplaintsScreen.routename : (ctx) => const ComplaintsScreen(),
           ChangePasswordScreen.routename : (ctx) => const ChangePasswordScreen(),
-          ClientDashboardScreen.routename : (ctx) => const ClientDashboardScreen()
+          ClientDashboardScreen.routename : (ctx) => const ClientDashboardScreen(),
+          EditProfileScreen.routename : (ctx) => const EditProfileScreen()
         },
       ),
     );

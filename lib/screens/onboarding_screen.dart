@@ -11,16 +11,6 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     PageController _pageController = PageController();
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Builder(
-            builder: (context) => AppBarWidget('JIDE TAIWO & CO.', () {
-              Scaffold.of(context).openEndDrawer();
-            }),
-          ),
-        ),
-        endDrawerEnableOpenDragGesture: false,
-        endDrawer: const ClientDashboradMenuDrawer(),
         body: PageView.builder(
             controller: _pageController,
             physics: const NeverScrollableScrollPhysics(),

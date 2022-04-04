@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
-import 'package:jidetaiwoapp/screens/agent_dashboard_screen.dart';
-import 'package:jidetaiwoapp/screens/client_dashboard_screen.dart';
-import 'package:jidetaiwoapp/screens/login_screen.dart';
-import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/screens/change_password_screen.dart';
+import 'package:jidetaiwoapp/screens/edit_profile_screen.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 
-class DashboardScreen extends StatelessWidget {
-  static const routename = '/dashboardscreen';
-  const DashboardScreen({Key? key}) : super(key: key);
+class ClientSettingScreen extends StatelessWidget {
+  const ClientSettingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('Dashboard', () {}),
+        child: Builder(
+          builder: (context) => AppBarTwoWidget('Settings', () {
+            Scaffold.of(context).openDrawer();
+          }),
+        ),
       ),
+      drawerEnableOpenDragGesture: false,
+      drawer: const ClientDashboradMenuDrawer(),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -25,8 +30,7 @@ class DashboardScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context)
-                    .pushNamed(ClientDashboardScreen.routename);
+                Navigator.of(context).pushNamed(EditProfileScreen.routename);
               },
               child: Container(
                 width: double.infinity,
@@ -35,7 +39,7 @@ class DashboardScreen extends StatelessWidget {
                     color: hextocolor('#FDEFED'),
                     borderRadius: BorderRadius.circular(12)),
                 child: Text(
-                  'Client Dashboard',
+                  'Edit profile',
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 16, color: Theme.of(context).primaryColor),
                 ),
@@ -45,9 +49,8 @@ class DashboardScreen extends StatelessWidget {
               height: 20,
             ),
             GestureDetector(
-              onTap: (){
-                Navigator.of(context)
-                    .pushNamed(AgentdashboardScreen.routename);
+              onTap: () {
+                Navigator.of(context).pushNamed(ChangePasswordScreen.routename);
               },
               child: Container(
                 width: double.infinity,
@@ -56,7 +59,7 @@ class DashboardScreen extends StatelessWidget {
                     color: hextocolor('#FDEFED'),
                     borderRadius: BorderRadius.circular(12)),
                 child: Text(
-                  'Agent Dashboard',
+                  'Change Password',
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 16, color: Theme.of(context).primaryColor),
                 ),

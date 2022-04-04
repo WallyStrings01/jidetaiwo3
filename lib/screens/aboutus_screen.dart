@@ -10,9 +10,9 @@ class AboutusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('PROFILE', () {}),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: AppBarWidget('PROFILE'),
       ),
       body: SingleChildScrollView(
         child: Padding(

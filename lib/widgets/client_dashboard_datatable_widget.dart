@@ -9,12 +9,13 @@ class ClientDashboardDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<ClientDashboard> _clientDashboardData =
-        Provider.of<ClientDashboardProvider>(context).getClientDashboardData;
-
+    List<ClientDashboard> _clientDashboardData = [];
     List<List<Widget>> _datarows = [];
+    _clientDashboardData =
+        Provider.of<ClientDashboardProvider>(context, listen: false)
+            .getClientDashboardData;
     _clientDashboardData.asMap().forEach((index, data) {
-      _datarows.add( <Widget>[
+      _datarows.add(<Widget>[
         Text(
           (index + 1).toString(),
           style: Theme.of(context)
@@ -51,87 +52,79 @@ class ClientDashboardDataTable extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: hextocolor('#108315').withOpacity(0.13)),
-          child: Text(data.contract! ? 'Active' : 'Not Active',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontSize: 14, color: hextocolor('#1A941F'))),
+              color: data.tenancy!.toLowerCase() == 'available'
+                  ? hextocolor('#108315').withOpacity(0.13)
+                  : hextocolor('#FFBF00').withOpacity(0.13)),
+          child: Text(data.tenancy!,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: 14,
+                  color: data.tenancy!.toLowerCase() == 'available'
+                      ? hextocolor('#1A941F')
+                      : hextocolor('#FFBF00'))),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: hextocolor('#108315').withOpacity(0.13)),
-          child: Text(data.contract! ? 'Active' : 'Not Active',
+          child: Text(data.contract!,
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!
-                  .copyWith(fontSize: 14, color: hextocolor('#1A941F'))),
+                  .copyWith(fontSize: 14, color: hextocolor('#ACA1A1'))),
         ),
       ]);
     });
-
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.white),
-        child: FittedBox(
-          child: DataTable(
-              dataRowHeight: 90,
-              columnSpacing: 25.0,
-              columns: [
-                DataColumn(
-                    label: Text(
-                  '#',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 12, fontWeight: FontWeight.bold),
-                )),
-                DataColumn(
-                    label: Text(
-                  'Property',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                )),
-                DataColumn(
-                    label: Text(
-                  'Type',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                )),
-                DataColumn(
-                    label: Text(
-                  'Tenancy',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                )),
-                DataColumn(
-                    label: Text(
-                  'Contract',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                ))
-              ],
-              rows: List.generate(
-                _clientDashboardData.length,
-                (index) => DataRow(
-                    cells: List.generate(5, (innerIndex) => DataCell(_datarows[index][innerIndex]))),
-              )),
-        ),
-      ),
-    );
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: Theme(
+              data: Theme.of(context).copyWith(dividerColor: Colors.white),
+              child: FittedBox(
+                child: DataTable(
+                    dataRowHeight: 90,
+                    columnSpacing: 25.0,
+                    columns: [
+                      DataColumn(
+                          label: Text(
+                        '#',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      )),
+                      DataColumn(
+                          label: Text(
+                        'Property',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      )),
+                      DataColumn(
+                          label: Text(
+                        'Type',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      )),
+                      DataColumn(
+                          label: Text(
+                        'Tenancy',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      )),
+                      DataColumn(
+                          label: Text(
+                        'Contract',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ))
+                    ],
+                    rows: List.generate(
+                      _clientDashboardData.length,
+                      (index) => DataRow(
+                          cells: List.generate(
+                              5,
+                              (innerIndex) =>
+                                  DataCell(_datarows[index][innerIndex]))),
+                    )),
+              ),
+            ),
+          );
   }
 }

@@ -3,7 +3,6 @@ import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/main_menu_two_drawer.dart';
 
 class AgentdashboardScreen extends StatelessWidget {
   static const routename = '/mydashboardscreen';
@@ -18,16 +17,10 @@ class AgentdashboardScreen extends StatelessWidget {
     ];
     return Scaffold(
         backgroundColor: hextocolor('#E5E5E5'),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Builder(
-            builder: (context) => AppBarWidget('My Dashboard', () {
-              Scaffold.of(context).openEndDrawer();
-            }),
-          ),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: AppBarWidget('My Dashboard')
         ),
-        endDrawerEnableOpenDragGesture: false,
-        endDrawer: const MenuMenuTwoDrawer(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -160,6 +153,7 @@ class AgentdashboardScreen extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: const BottomNavigationWidget());
+        //bottomNavigationBar: const BottomNavigationWidget()
+      );
   }
 }

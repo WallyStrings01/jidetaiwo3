@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
+import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 import '../hextocolor.dart';
 
 class ComplaintsScreen extends StatelessWidget {
@@ -14,8 +16,15 @@ class ComplaintsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: hextocolor('#E5E5E5'),
       appBar: PreferredSize(
-          child: AppBarWidget('Complaints', (){}),
-          preferredSize: const Size.fromHeight(kToolbarHeight)),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Builder(
+          builder: (context) => AppBarTwoWidget('Complaints', () {
+            Scaffold.of(context).openDrawer();
+          }),
+        ),
+      ),
+      drawerEnableOpenDragGesture: false,
+      drawer: const ClientDashboradMenuDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
@@ -64,7 +73,7 @@ class ComplaintsScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavigationWidget(),
+      //bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }

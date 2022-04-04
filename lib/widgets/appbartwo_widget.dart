@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AppBarWidget extends StatelessWidget {
+class AppBarTwoWidget extends StatelessWidget {
   final String title;
+  final Function onTap;
 
-  const AppBarWidget(@required this.title, {Key? key})
+  const AppBarTwoWidget(@required this.title, @required this.onTap, {Key? key})
       : super(key: key);
 
   @override
@@ -12,16 +13,16 @@ class AppBarWidget extends StatelessWidget {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       automaticallyImplyLeading: false,
+      leading:  Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GestureDetector(
+          onTap: () => onTap(),
+          child: SvgPicture.asset(
+            'assets/icons/Frame2.svg',
+          ),
+        ),
+      ),
       centerTitle: true,
-      leading: IconButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-          size: 28,
-        )),
       title: Text(
         title,
         style: TextStyle(

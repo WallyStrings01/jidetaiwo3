@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
@@ -13,13 +14,13 @@ class PublicSectorScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
-          builder: (context) => AppBarWidget('Public Sector', () {
-            Scaffold.of(context).openEndDrawer();
+          builder: (context) => AppBarTwoWidget('Public Sector', () {
+            Scaffold.of(context).openDrawer();
           }),
         ),
       ),
-      endDrawerEnableOpenDragGesture: false,
-      endDrawer: const MenuMenuOneDrawer(),
+      drawerEnableOpenDragGesture: false,
+      drawer: const MenuMenuOneDrawer(),
       body: SingleChildScrollView(
         child: Container(
             padding: const EdgeInsets.all(20.0),
@@ -37,7 +38,6 @@ We undertake feasibility studies, options appraisals and business case work whic
               textAlign: TextAlign.left,
             )),
       ),
-      bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }
