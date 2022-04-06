@@ -38,133 +38,126 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
       child: Column(
         children: [
           Expanded(
-              child: Container(
-                margin: EdgeInsets.only(top: 50),
-                  child: Image(
-            image: AssetImage(widget.imgText),
-            fit: BoxFit.cover,
-          ))),
-          Expanded(
-              child: SafeArea(
-            top: false,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Container(
+            padding: EdgeInsets.only(top: 50),
+            child: Image(
+              image: AssetImage(widget.imgText),
+              fit: BoxFit.cover,
+            )),
+          ),
+            Column(
               children: [
-                const Spacer(),
-                Text(headlineText[widget.screenIndex],
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontWeight: FontWeight.bold)),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  bodyText[widget.screenIndex],
+                 Text(headlineText[widget.screenIndex],
+                  textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16),
-                  textAlign: TextAlign.center,
-                ),
-                const Spacer(),
-                Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(3, (index) {
-                        return index == widget.screenIndex
-                            ? Container(
-                                width: 36,
-                                height: 10,
-                                margin: const EdgeInsets.only(right: 3),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              )
-                            : Container(
-                                width: 14,
-                                height: 10,
-                                margin: const EdgeInsets.only(right: 3),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: Colors.grey,
-                                ),
-                              );
-                      })),
-                ),
-                const Spacer(),
-                widget.screenIndex == 0
-                    ? Container(
-                        alignment: Alignment.bottomRight,
-                        child: ElevatedButtonWidget(
+                      .headline6!
+                      .copyWith(fontWeight: FontWeight.bold)),
+              const SizedBox(
+                height: 5,
+              ),
+              if (bodyText[widget.screenIndex] != '')
+              Text(
+                bodyText[widget.screenIndex],
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 25,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(3, (index) {
+                    return index == widget.screenIndex
+                        ? Container(
+                            width: 36,
+                            height: 10,
+                            margin: const EdgeInsets.only(right: 3),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          )
+                        : Container(
+                            width: 14,
+                            height: 10,
+                            margin: const EdgeInsets.only(right: 3),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Colors.grey,
+                            ),
+                          );
+                  })),
+              const SizedBox(height: 20),
+              widget.screenIndex == 0
+                  ? Container(
+                      alignment: Alignment.bottomRight,
+                      child: ElevatedButtonWidget(
+                        width: 153,
+                        height: 50,
+                        bgColor: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                        borderRadius: 28,
+                        ontap: () {
+                          setState(() {
+                            widget.pageController.animateToPage(
+                                (widget.screenIndex + 1),
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeOut);
+                          });
+                        },
+                        buttonText:
+                            widget.screenIndex == 2 ? 'Gest Started' : 'Next',
+                      ))
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+                                widget.pageController.animateToPage(
+                                    (widget.screenIndex - 1),
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeOut);
+                              });
+                            },
+                            child: Text(
+                              'Back',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context).primaryColor),
+                            )),
+                        ElevatedButtonWidget(
                           width: 153,
-                          height: 50,
                           bgColor: Theme.of(context).primaryColor,
                           textColor: Colors.white,
+                          height: 50,
                           borderRadius: 28,
                           ontap: () {
                             setState(() {
-                              widget.pageController.animateToPage(
-                                  (widget.screenIndex + 1),
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeOut);
+                              if (widget.screenIndex == 2) {
+                                Navigator.of(context)
+                                    .pushNamed(HomeScreen.routename);
+                              } else {
+                                widget.pageController.animateToPage(
+                                    (widget.screenIndex + 1),
+                                    duration: Duration(milliseconds: 200),
+                                    curve: Curves.easeIn);
+                              }
                             });
                           },
                           buttonText:
-                              widget.screenIndex == 2 ? 'Gest Started' : 'Next',
-                        ))
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  widget.pageController.animateToPage(
-                                      (widget.screenIndex - 1),
-                                      duration: const Duration(milliseconds: 300),
-                                      curve: Curves.easeOut);
-                                });
-                              },
-                              child: Text(
-                                'Back',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color: Theme.of(context).primaryColor),
-                              )),
-                          ElevatedButtonWidget(
-                            width: 153,
-                            bgColor: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            height: 50,
-                            borderRadius: 28,
-                            ontap: () {
-                              setState(() {
-                                if (widget.screenIndex == 2) {
-                                  Navigator.of(context).pushNamed(HomeScreen.routename);
-                                }
-                                else{
-                                  widget.pageController.animateToPage(
-                                      (widget.screenIndex + 1),
-                                      duration: Duration(milliseconds: 200),
-                                      curve: Curves.easeIn);
-                                }
-                              });
-                            },
-                            buttonText: widget.screenIndex == 2
-                                ? 'Get Started'
-                                : 'Next',
-                          )
-                        ],
-                      )
+                              widget.screenIndex == 2 ? 'Get Started' : 'Next',
+                        )
+                      ],
+                    )
               ],
-            ),
-          ))
+            )
         ],
       ),
     );
