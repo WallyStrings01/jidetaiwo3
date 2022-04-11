@@ -83,7 +83,7 @@ class SearchforpropertyScreen extends StatelessWidget {
                   width: 20,
                 ),
                 Expanded(
-                    child: _dropdownform('Sales',
+                    child: _dropdownform('Contract',
                         ['Contract', 'Letting', 'Lease', 'Valuation', 'Sale']))
               ],
             ),

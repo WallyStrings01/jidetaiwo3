@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
@@ -95,7 +96,10 @@ class ProjectManagementScreen extends StatelessWidget {
                                 buttonText: 'Speak To Us',
                                 borderRadius: 8,
                                 textSize: 14,
-                                ontap: () {},
+                                ontap: () {
+                                  Navigator.of(context)
+                                    .pushNamed(GetInTouchScreen.routename);
+                                },
                                 textColor: Colors.white,
                                 bgColor: Theme.of(context).primaryColor),
                           ),

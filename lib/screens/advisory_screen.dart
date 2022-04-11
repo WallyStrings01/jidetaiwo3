@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
-import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/provider/advisory_consultancy_provider.dart';
-import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:jidetaiwoapp/widgets/drawer/main_menu_one_drawer.dart';
 
@@ -66,7 +65,10 @@ class AdvisoryScreen extends StatelessWidget {
                             buttonText: 'Speak To Us',
                             borderRadius: 10,
                             textSize: 14,
-                            ontap: () {},
+                            ontap: () {
+                              Navigator.of(context)
+                                  .pushNamed(GetInTouchScreen.routename);
+                            },
                             textColor: Colors.white,
                             bgColor: Theme.of(context).primaryColor),
                       ),

@@ -12,11 +12,11 @@ class ClientDashboardProvider extends ChangeNotifier {
     return [..._clientDashboard];
   }
 
-  Future<void> fetchClientDashboardInformation() async {
+  Future<void> fetchClientDashboardInformation(int clientId) async {
     try {
       HttpClient httpClient = HttpClient();
       HttpClientRequest request = await httpClient.getUrl(Uri.parse(
-          'https://jidetaiwoandco.com/mailsolution/propertybriefauthapi.php?client=150'));
+          'https://jidetaiwoandco.com/mailsolution/propertybriefauthapi.php?client=$clientId'));
       request.headers.set('Content-type', 'application/json');
       HttpClientResponse response = await request.close();
       String reply = await response.transform(utf8.decoder).join();

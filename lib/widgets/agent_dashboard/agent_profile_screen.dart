@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/provider/agent_provider.dart';
 import 'package:jidetaiwoapp/provider/client_provider.dart';
 import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 import 'package:provider/provider.dart';
 
-class ClientProfileScreen extends StatelessWidget {
-  const ClientProfileScreen({Key? key}) : super(key: key);
+class AgentProfileScreen extends StatelessWidget {
+  const AgentProfileScreen({Key? key}) : super(key: key);
 
   DataRow dataRows(property, textString) {
     return DataRow(cells: [
@@ -22,14 +23,17 @@ class ClientProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _client = Provider.of<Clientprovider>(context).getClient;
+    final _agent = Provider.of<Agentprovider>(context).getAgent;
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Builder(
-            builder: (context) => AppBarTwoWidget('My Profile', () {
-              Scaffold.of(context).openDrawer();
-            }),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: Text(
+            'My Profile',
+            style: TextStyle(
+                fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
+                fontSize: 20),
           ),
         ),
         drawerEnableOpenDragGesture: false,
@@ -46,8 +50,8 @@ class ClientProfileScreen extends StatelessWidget {
                 radius: 50,
                 backgroundColor: Theme.of(context).primaryColor,
               ),
-              title: Text(_client.clientName.toString()),
-              subtitle: Text('Email: ${_client.emailAddress}'),
+              title: Text(_agent.clientName.toString()),
+              subtitle: Text('Email: ${_agent.clientEmail}'),
             ),
             const SizedBox(
               height: 15,
@@ -75,11 +79,12 @@ class ClientProfileScreen extends StatelessWidget {
                     DataColumn(label: Text(''))
                   ],
                   rows: [
-                    dataRows('Account Type', _client.clientCategory),
-                    dataRows('Mobile Number', _client.phoneNumber),
-                    dataRows('Address', _client.clientAddress),
-                    dataRows('District', _client.clientDistrict),
-                    dataRows('State', _client.clientState),
+                    dataRows('Account Type', _agent.clientCategory),
+                    dataRows('Mobile Number', _agent.clientMobileNumber),
+                    dataRows('Branch In Charge', _agent.branchIncharge),
+                    dataRows('Address', _agent.clientAddress),
+                    dataRows('District', _agent.clientDistrict),
+                    dataRows('State', _agent.clientState),
                   ]),
             )
           ],

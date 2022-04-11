@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 import 'package:jidetaiwoapp/widgets/onboarding_widget.dart';
 
 class OnboardingScreen extends StatelessWidget {

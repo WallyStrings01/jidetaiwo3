@@ -1,7 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/httpexception.dart';
+import 'package:jidetaiwoapp/provider/agent_provider.dart';
 import 'package:jidetaiwoapp/provider/client_dashboard_provider.dart';
+import 'package:jidetaiwoapp/provider/client_provider.dart';
 import 'package:jidetaiwoapp/screens/agent_dashboard_screen.dart';
 import 'package:jidetaiwoapp/screens/client_dashboard_screen.dart';
 import 'package:jidetaiwoapp/screens/signup_screen.dart';
@@ -21,6 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isloading = false;
   String? appbarText = 'agent';
   final _formkey = GlobalKey<FormState>();
+  final _focusNode = {'client id': FocusNode(), 'phone number': FocusNode()};
+  String id = '';
+  String phoneNum = '';
+  bool showError = false;
+  String? errormessage;
 
   Future<void> loginUser() async {
     final isvalid = _formkey.currentState!.validate();
@@ -31,22 +39,54 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isloading = true;
     });
-    if (appbarText == 'client') {
-      await Provider.of<ClientDashboardProvider>(context, listen: false)
-          .fetchClientDashboardInformation();
+    try {
+      if(appbarText == 'client'){
+        final clientId =
+            await Provider.of<Clientprovider>(context, listen: false)
+                .loginUser(id, phoneNum);
+        await Provider.of<ClientDashboardProvider>(context, listen: false)
+            .fetchClientDashboardInformation(int.parse(clientId));
+        Navigator.of(context).pushNamed(ClientDashboardScreen.routename);
+      }
+      else{
+        final agentId =
+            await Provider.of<Agentprovider>(context, listen: false)
+                .loginUser(id, phoneNum);
+        Navigator.of(context).pushNamed(AgentdashboardScreen.routename, arguments: agentId);
+      }
+    } catch (error) {
+      if (error.toString().contains('HttpException')) {
+        errormessage = error.toString().split('HttpException: ')[1];
+      } else {
+        errormessage = 'An error occurred, try again later';
+      }
       setState(() {
+        showError = true;
         isloading = false;
       });
-      Navigator.of(context).pushNamed(ClientDashboardScreen.routename);
-    } else {
-      Navigator.of(context).pushNamed(AgentdashboardScreen.routename);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    appbarText = ModalRoute.of(context)!.settings.arguments as String;
     Widget _inputForm(String label) {
       return TextFormField(
+        keyboardType: label.trim().toLowerCase() == 'phone number'
+            ? TextInputType.number
+            : TextInputType.text,
+        textInputAction: label.trim().toLowerCase() == 'phone number'
+            ? TextInputAction.done
+            : TextInputAction.next,
+        focusNode: _focusNode[label],
+        onSaved: (value) {
+          if (label.trim().toLowerCase() == 'phone number') {
+            phoneNum = value.toString();
+          }
+          if (label.trim().toLowerCase() == 'client id' || label.trim().toLowerCase() == 'agent id') {
+            id = value.toString();
+          }
+        },
         decoration: InputDecoration(
           labelText: label,
           labelStyle: Theme.of(context)
@@ -72,8 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
           if (value == null || value.isEmpty) {
             return 'field cannot be empty';
           }
-          if (label.trim().toLowerCase() == 'password' && value.length < 4) {
-            return 'password too short';
+          if (label.trim().toLowerCase() == 'phone number' &&
+              value.length != 11) {
+            return 'Invalid phone number';
           }
           return null;
         },
@@ -106,11 +147,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                _inputForm('Email'),
+                if (showError == true)
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      errormessage.toString(),
+                      style: const TextStyle(color: Colors.red, fontSize: 14),
+                    ),
+                  ),
+                _inputForm(appbarText == 'client' ? 'Client id' : 'Agent id'),
                 const SizedBox(
                   height: 20,
                 ),
-                _inputForm('Password'),
+                _inputForm('Phone number'),
                 const SizedBox(
                   height: 60,
                 ),
@@ -120,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             primary: Theme.of(context).primaryColor,
                             minimumSize: Size(double.infinity, 51)),
                         onPressed: () {},
-                        child: Center(
+                        child: const Center(
                           child: SizedBox(
                             height: 30,
                             width: 30,

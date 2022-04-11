@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
@@ -12,9 +13,9 @@ class ValuationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
+        appBar: const PreferredSize(
             child: AppBarWidget('Valuation'),
-            preferredSize: const Size.fromHeight(kToolbarHeight)),
+            preferredSize: Size.fromHeight(kToolbarHeight)),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
@@ -61,7 +62,10 @@ class ValuationScreen extends StatelessWidget {
                               buttonText: 'Book A Valuation',
                               borderRadius: 8,
                               textSize: 14,
-                              ontap: () {},
+                              ontap: () {
+                                Navigator.of(context)
+                                    .pushNamed(GetInTouchScreen.routename);
+                              },
                               textColor: Colors.white,
                               bgColor: Theme.of(context).primaryColor),
                         )

@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/model/agent_model.dart';
+import 'package:jidetaiwoapp/provider/agent_provider.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
-import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
-import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
+import 'package:provider/provider.dart';
 
 import '../hextocolor.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const routename = '/profilescreen';
   const EditProfileScreen({Key? key}) : super(key: key);
-  
+
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  Agent? _agent;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _controller1 =
-      TextEditingController(text: 'Oluwajuwon Smith');
-  final TextEditingController _controller2 =
-      TextEditingController(text: 'www@gmail.com');
-  final TextEditingController _controller3 =
-      TextEditingController(text: '09022725654');
-  final TextEditingController _controller4 =
-      TextEditingController(text: 'VI Lagos State');
+  TextEditingController? _controller1;
+  TextEditingController? _controller2;
+  TextEditingController? _controller3;
+  TextEditingController? _controller4;
+
+  @override
+  void initState() {
+    _initstate();
+    super.initState();
+  }
+
+  void _initstate() {
+    _agent = Provider.of<Agentprovider>(context, listen: false).getAgent;
+    _controller1 = TextEditingController(text: _agent!.clientName);
+    _controller2 = TextEditingController(text: _agent!.clientEmail);
+    _controller3 = TextEditingController(text: _agent!.clientMobileNumber);
+    _controller4 = TextEditingController(text: _agent!.clientAddress);
+  }
 
   Widget _buildTextForm(String name, TextEditingController _controller) {
     return Column(
@@ -64,7 +76,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
-          builder: (context) => AppBarWidget('Edit Profile'),
+          builder: (context) => const AppBarWidget('Edit Profile'),
         ),
       ),
       drawerEnableOpenDragGesture: false,
@@ -77,19 +89,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Form(
                     key: _formKey,
                     child: Column(children: [
-                      _buildTextForm('Name', _controller1),
+                      _buildTextForm('Name', _controller1!),
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildTextForm('Phone', _controller2),
+                      _buildTextForm('Phone', _controller2!),
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildTextForm('Email', _controller3),
+                      _buildTextForm('Email', _controller3!),
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildTextForm('Address', _controller4),
+                      _buildTextForm('Address', _controller4!),
                       const SizedBox(
                         height: 40,
                       ),

@@ -31,7 +31,7 @@ class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
         setState(() {
           navigationBarCurrentIndex = index;
         });
-      }, navigationBarCurrentIndex),
+      }, navigationBarCurrentIndex, 'client'),
     );
   }
 }

@@ -1,159 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/provider/agent_provider.dart';
+import 'package:jidetaiwoapp/widgets/agent_dashboard/agent_home_screen.dart';
+import 'package:jidetaiwoapp/widgets/agent_dashboard/agent_profile_screen.dart';
+import 'package:jidetaiwoapp/widgets/agent_dashboard/agent_settings_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
+import 'package:provider/provider.dart';
 
-class AgentdashboardScreen extends StatelessWidget {
+class AgentdashboardScreen extends StatefulWidget {
   static const routename = '/mydashboardscreen';
   const AgentdashboardScreen({Key? key}) : super(key: key);
 
   @override
+  State<AgentdashboardScreen> createState() => _AgentdashboardScreenState();
+}
+
+class _AgentdashboardScreenState extends State<AgentdashboardScreen> {
+  final List<Widget> _screenToDispaly = [
+    const AgentHomeScreen(),
+    const AgentSettingScreen(),
+    const AgentProfileScreen(),
+  ];
+  int navigationBarCurrentIndex = 0;
+  @override
   Widget build(BuildContext context) {
-    List _containerDetails = [
-      {'number': 12, 'text': 'Total number of prospect'},
-      {'number': 12, 'text': 'Total number of properties available'},
-      {'number': 12, 'text': 'Total number of views'}
-    ];
     return Scaffold(
-        backgroundColor: hextocolor('#E5E5E5'),
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child: AppBarWidget('My Dashboard')
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Column(
-              children: List.generate(_containerDetails.length + 1, (index) => index == 0 ? Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 36,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: CircleAvatar(
-                          radius: 35,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
-                          child: Text(
-                            '12',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme.of(context).primaryColor),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Text(
-                        'Total number of your property listings',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 18, color: hextocolor('#5E5B5B')),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: ElevatedButtonWidget(
-                                width: double.maxFinite,
-                                height: 50,
-                                buttonText: 'Add new properties',
-                                borderRadius: 8,
-                                textSize: 14,
-                                ontap: () {},
-                                textColor: Colors.white,
-                                bgColor: Theme.of(context).primaryColor),
-                          ),
-                         const  SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: ElevatedButtonWidget(
-                                width: double.maxFinite,
-                                height: 50,
-                                buttonText: 'View details',
-                                borderRadius: 8,
-                                textSize: 14,
-                                ontap: () {},
-                                textColor: Colors.white,
-                                bgColor: Theme.of(context).primaryColor),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ): Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 36,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: CircleAvatar(
-                          radius: 35,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
-                          child: Text(
-                            _containerDetails[index - 1]['number'].toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme.of(context).primaryColor),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Text(
-                        _containerDetails[index - 1]['text'],
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 18, color: hextocolor('#5E5B5B')),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButtonWidget(
-                          width: double.maxFinite,
-                          height: 50,
-                          buttonText: 'View details',
-                          borderRadius: 8,
-                          textSize: 14,
-                          ontap: () {},
-                          textColor: Colors.white,
-                          bgColor: Theme.of(context).primaryColor),
-                    ],
-                  ),
-                ),)
-            ),
-          ),
-        ),
-        //bottomNavigationBar: const BottomNavigationWidget()
-      );
+      bottomNavigationBar: BottomNavigationWidget((index) {
+        setState(() {
+          if(index != 3){
+            navigationBarCurrentIndex = index;
+          }   
+        });
+      }, navigationBarCurrentIndex, 'agent'),
+      body: _screenToDispaly[navigationBarCurrentIndex]
+      //bottomNavigationBar: const BottomNavigationWidget()
+    );
   }
 }

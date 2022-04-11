@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:jidetaiwoapp/provider/facility_mgt_provider.dart';
@@ -12,7 +13,7 @@ class FacilityManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+        appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Builder(
             builder: (context) => AppBarTwoWidget('Facility Management', () {
@@ -45,61 +46,61 @@ class FacilityManagementScreen extends StatelessWidget {
                         ],
                       ),
                     );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            '${facilities[index - 1].image}',
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            facilities[index - 1].title!,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            facilities[index - 1].text!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: 13, height: 1.5),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomLeft,
+                            child: ElevatedButtonWidget(
+                                width: 211,
+                                height: 38,
+                                buttonText: 'Speak To Us',
+                                borderRadius: 8,
+                                textSize: 14,
+                                ontap: () {
+                                  Navigator.of(context).pushNamed(GetInTouchScreen.routename);
+                                },
+                                textColor: Colors.white,
+                                bgColor: Theme.of(context).primaryColor),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                        ],
+                      ),
+                    );
                   }
-                 else {
-                   return Padding(
-                     padding: const EdgeInsets.only(top: 20),
-                     child: Column(
-                      children: [
-                        Image.asset(
-                          '${facilities[index - 1].image}',
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          facilities[index - 1].title!,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          facilities[index - 1].text!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(fontSize: 13, height: 1.5),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          alignment: Alignment.bottomLeft,
-                          child: ElevatedButtonWidget(
-                              width: 211,
-                              height: 38,
-                              buttonText: 'Speak To Us',
-                              borderRadius: 8,
-                              textSize: 14,
-                              ontap: () {},
-                              textColor: Colors.white,
-                              bgColor: Theme.of(context).primaryColor),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                      ],
-                  ),
-                   );
-                 }
                 })));
   }
 }

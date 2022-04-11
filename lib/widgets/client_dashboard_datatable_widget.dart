@@ -81,8 +81,9 @@ class ClientDashboardDataTable extends StatelessWidget {
               data: Theme.of(context).copyWith(dividerColor: Colors.white),
               child: FittedBox(
                 child: DataTable(
-                    dataRowHeight: 90,
+                    dataRowHeight: 100,
                     columnSpacing: 25.0,
+                    
                     columns: [
                       DataColumn(
                           label: Text(
@@ -91,11 +92,14 @@ class ClientDashboardDataTable extends StatelessWidget {
                             fontSize: 12, fontWeight: FontWeight.bold),
                       )),
                       DataColumn(
-                          label: Text(
-                        'Property',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      )),
+                          label: Flexible(
+                            child: Text(
+                                'Property',
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                        )),
                       DataColumn(
                           label: Text(
                         'Type',

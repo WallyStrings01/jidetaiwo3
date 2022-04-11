@@ -115,12 +115,14 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   isExpanded: true,
                   items: [
-                    'Account type 1',
-                    'Account type 2',
-                    'Account type 3',
-                    'Account type 4',
-                    'Account type 5',
-                    'Account type 6'
+                    'Enquiry',
+                    'Property Owner (landlord)',
+                    'Estate agent',
+                    'Compnay',
+                    'Tenant',
+                    'New Client',
+                    'Valuation Client or proxy',
+                    'Developer'
                   ].map((value) {
                     return DropdownMenuItem(
                       value: value,

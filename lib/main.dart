@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/provider/agent_provider.dart';
 import 'package:jidetaiwoapp/provider/client_dashboard_provider.dart';
 import 'package:jidetaiwoapp/provider/property_image_provider.dart';
 import 'package:jidetaiwoapp/provider/property_provider.dart';
+import 'package:jidetaiwoapp/provider/client_provider.dart';
 import 'package:jidetaiwoapp/screens/aboutus_screen.dart';
 import 'package:jidetaiwoapp/screens/advisory_screen.dart';
 import 'package:jidetaiwoapp/screens/agency_screen.dart';
@@ -24,7 +26,6 @@ import 'package:jidetaiwoapp/screens/project_management_screen.dart';
 import 'package:jidetaiwoapp/screens/properties_screen.dart';
 import 'package:jidetaiwoapp/screens/public_sector_screen.dart';
 import 'package:jidetaiwoapp/screens/searchforproperty_screen.dart';
-import 'package:jidetaiwoapp/screens/splash_screen.dart';
 import 'package:jidetaiwoapp/screens/splashscreen2.dart';
 import 'package:jidetaiwoapp/screens/valuation_screen.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ClientDashboardProvider()),
         ChangeNotifierProvider(create: (_) => PropertyProvider()),
         ChangeNotifierProvider(create: (_) => PropertyImageProvider()),
+        ChangeNotifierProvider(create: (_) => Clientprovider()),
+        ChangeNotifierProvider(create: (_) => Agentprovider()),
       ],
       child: MaterialApp(
         title: 'Jide Taiwo',
