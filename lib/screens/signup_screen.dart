@@ -143,7 +143,7 @@ class _SignupScreenState extends State<SignupScreen> {
               borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(color: Colors.blue)),
         ),
-        obscureText: _obscurepassword,
+        obscureText:label.toLowerCase() == 'password' ?  _obscurepassword : false,
         controller: controller,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -598,7 +598,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             text: 'Here',
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Navigator.of(context)
-                                  .popAndPushNamed(LoginScreen.routename),
+                                  .popAndPushNamed(LoginScreen.routename, arguments: appbarText.toLowerCase()),
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor)),
                         const TextSpan(text: ' to Log In')
