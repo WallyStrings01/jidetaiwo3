@@ -22,7 +22,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isloading = false;
-  String? appbarText = 'agent';
   final _formkey = GlobalKey<FormState>();
   final _focusNode = {'client id': FocusNode(), 'phone number': FocusNode()};
   String id = '';
@@ -30,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showError = false;
   String? errormessage;
 
-  Future<void> loginUser() async {
+  Future<void> loginUser(String appbarText) async {
     final isvalid = _formkey.currentState!.validate();
     if (!isvalid) {
       return;
@@ -40,19 +39,20 @@ class _LoginScreenState extends State<LoginScreen> {
       isloading = true;
     });
     try {
-      if(appbarText == 'client'){
+      if(appbarText.toLowerCase() == 'client'){
         final clientId =
             await Provider.of<Clientprovider>(context, listen: false)
-                .loginUser(id, phoneNum);
-        await Provider.of<ClientDashboardProvider>(context, listen: false)
-            .fetchClientDashboardInformation(int.parse(clientId));
+                .loginuser(id, phoneNum);
+        //await Provider.of<ClientDashboardProvider>(context, listen: false).fetchClientDashboardInformation(int.parse(clientId));
         Navigator.of(context).pushNamed(ClientDashboardScreen.routename);
       }
       else{
         final agentId =
             await Provider.of<Agentprovider>(context, listen: false)
-                .loginUser(id, phoneNum);
-        Navigator.of(context).pushNamed(AgentdashboardScreen.routename, arguments: agentId);
+                .loginuser(id, phoneNum);
+                Navigator.of(context)
+            .pushNamed(AgentdashboardScreen.routename, arguments: 12625);
+        //Navigator.of(context).pushNamed(AgentdashboardScreen.routename, arguments: agentId);
       }
     } catch (error) {
       if (error.toString().contains('HttpException')) {
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    appbarText = ModalRoute.of(context)!.settings.arguments as String;
+    final appbarText = ModalRoute.of(context)!.settings.arguments as String;
     Widget _inputForm(String label) {
       return TextFormField(
         keyboardType: label.trim().toLowerCase() == 'phone number'
@@ -112,10 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
           if (value == null || value.isEmpty) {
             return 'field cannot be empty';
           }
-          if (label.trim().toLowerCase() == 'phone number' &&
+          /*if (label.trim().toLowerCase() == 'phone number' &&
               value.length != 11) {
             return 'Invalid phone number';
-          }
+          }*/
           return null;
         },
       );
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
           builder: (context) =>
-              AppBarWidget('${appbarText!.toUpperCase()} LOGIN'),
+              AppBarWidget('${appbarText.toUpperCase()} LOGIN'),
         ),
       ),
       body: Padding(
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Text(
-                  'Please fill in the following to Sign Up',
+                  'Please fill in the following to Login',
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
@@ -148,12 +148,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 15,
                 ),
                 if (showError == true)
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      errormessage.toString(),
-                      style: const TextStyle(color: Colors.red, fontSize: 14),
-                    ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            errormessage.toString(),
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 14),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 _inputForm(appbarText == 'client' ? 'Client id' : 'Agent id'),
                 const SizedBox(
@@ -167,7 +174,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ? ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).primaryColor,
-                            minimumSize: Size(double.infinity, 51)),
+                            minimumSize: Size(double.infinity, 51),
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8)),
+                        ),
                         onPressed: () {},
                         child: const Center(
                           child: SizedBox(
@@ -183,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 51,
                         buttonText: 'Login',
                         borderRadius: 8,
-                        ontap: loginUser,
+                        ontap: () => loginUser(appbarText),
                         textColor: Colors.white,
                         bgColor: Theme.of(context).primaryColor),
                 const SizedBox(
@@ -201,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextSpan(
                             text: 'Here',
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => Navigator.of(context).pushNamed(
+                              ..onTap = () => Navigator.of(context).popAndPushNamed(
                                   SignupScreen.routename,
                                   arguments: appbarText),
                             style: TextStyle(

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/model/property_image_model.dart';
 
 class PropertyImageProvider extends ChangeNotifier {
-  Map<String, PropertyImage> _propertyimages = {};
+  final Map<String, PropertyImage> _propertyimages = {};
 
   Map<String, PropertyImage> get getpropertyimages {
     return {..._propertyimages};

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/model/property_model.dart';
 import 'package:jidetaiwoapp/provider/property_provider.dart';
 import 'package:jidetaiwoapp/screens/searchforproperty_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
@@ -18,9 +19,15 @@ class ExplorePropertyScreen extends StatefulWidget {
 class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
   final FocusNode _searchfocusNode = FocusNode();
   final value = NumberFormat("#,##0.00", "en_US");
+  List _searches = [];
+  List<Property> extractedPropertiesData = [];
+  List<Property> propertiesData = [];
 
   @override
   void initState() {
+    extractedPropertiesData =
+        Provider.of<PropertyProvider>(context, listen: false).getPropertiesData;
+    propertiesData = extractedPropertiesData;
     _searchfocusNode.addListener(_onsearchTap);
     super.initState();
   }
@@ -35,7 +42,45 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
   void _onsearchTap() {
     if (_searchfocusNode.hasFocus) {
       FocusScope.of(context).unfocus();
-      Navigator.of(context).pushNamed(SearchforpropertyScreen.routename);
+      Navigator.of(context)
+          .pushNamed(SearchforpropertyScreen.routename)
+          .then((value) {
+        _searches = value as List;
+        if (_searches.isNotEmpty) {
+          print(_searches);
+          for (var item in _searches) {
+            if (item['price range'] != null) {
+              final lowPrice = item['price range'].split(' - ')[0];
+              final highPrice = item['price range'].split(' - ')[1];
+
+              propertiesData = extractedPropertiesData
+                  .where((element) =>
+                      element.contract.toString().toLowerCase() == item['sale'] ||
+                      element.numberOfRooms == item['bedrooms'] ||
+                      element.numberOfBathrooms == item['bathrooms'] ||
+                      element.location.toString().toLowerCase() == item['location'] ||
+                      (double.parse(lowPrice) <= element.price! &&
+                          element.price! <= double.parse(highPrice)) ||
+                      element.id.toString().toLowerCase() == item['propertyid'])
+                  .toList();
+            } else if (_searches.length == 1 && item['type'] != null) {
+              propertiesData = extractedPropertiesData;
+            } else {
+              propertiesData = extractedPropertiesData
+                  .where((element) =>
+                      element.contract.toString().toLowerCase() == item['sale'] ||
+                      element.numberOfRooms == item['bedrooms'] ||
+                      element.numberOfBathrooms == item['bathrooms'] ||
+                      element.location.toString().toLowerCase() == item['location'] ||
+                      element.id.toString().toLowerCase() == item['propertyid'])
+                  .toList();
+            }
+          }
+        } else {
+          propertiesData = extractedPropertiesData;
+        }
+        setState(() {});
+      });
     }
   }
 
@@ -71,8 +116,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final propertiesData =
-        Provider.of<PropertyProvider>(context, listen: false).getPropertiesData;
+    print(propertiesData.length);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),

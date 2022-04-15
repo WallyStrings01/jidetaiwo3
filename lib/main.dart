@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
               button: TextStyle(
                   fontFamily: 'Roboto', fontSize: 18, color: Colors.white)),
         ),
-        home:  const SplashScreen2(),
+        home:  const HomeScreen(),
         routes: {
           AboutusScreen.routename: (ctx) => const AboutusScreen(),
           AgencyScreen.routename: (ctx) => const AgencyScreen(),
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.routename: (ctx) => const HomeScreen(),
           AgentdashboardScreen.routename: (ctx) => const AgentdashboardScreen(),
           OnboardingScreen.routename: (ctx) => const OnboardingScreen(),
-          SearchforpropertyScreen.routename: (ctx) => const SearchforpropertyScreen(),
+          SearchforpropertyScreen.routename: (ctx) => SearchforpropertyScreen(),
           GetInTouchScreen.routename : (ctx) => const GetInTouchScreen(),
           ValuationScreen.routename: (ctx) => const ValuationScreen(),
           FacilityManagementScreen.routename : (ctx) => const FacilityManagementScreen(),

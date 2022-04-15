@@ -30,7 +30,7 @@ class ClientSettingScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(EditProfileScreen.routename);
+                Navigator.of(context).pushNamed(EditProfileScreen.routename, arguments: 'client');
               },
               child: Container(
                 width: double.infinity,
@@ -50,7 +50,8 @@ class ClientSettingScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(ChangePasswordScreen.routename);
+                Navigator.of(context).pushNamed(ChangePasswordScreen.routename,
+                    arguments: 'client');
               },
               child: Container(
                 width: double.infinity,

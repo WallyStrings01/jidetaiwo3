@@ -3,40 +3,29 @@ import 'package:jidetaiwoapp/model/property_image_model.dart';
 import 'package:jidetaiwoapp/provider/property_image_provider.dart';
 import 'package:provider/provider.dart';
 
-class PropertyImageWidget extends StatefulWidget {
+class PropertyImageWidget extends StatelessWidget {
   final String id;
   const PropertyImageWidget({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<PropertyImageWidget> createState() => _PropertyImageWidgetState();
-}
-
-class _PropertyImageWidgetState extends State<PropertyImageWidget> {
-  Future? _future;
-
-  @override
-  void initState() {
-    _future = _getPropertyImages(widget.id);
-    super.initState();
-  }
-
-  Future _getPropertyImages(String id) async {
-    final Map<String, PropertyImage> properyImages =
-        Provider.of<PropertyImageProvider>(context, listen: false)
-            .getpropertyimages;
-    if (properyImages[widget.id] == null) {
-      return await Provider.of<PropertyImageProvider>(context, listen: false)
-          .fetchpropertyimages(widget.id);
-    }
-    return properyImages[widget.id]!.imageUrl;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Future<String> _getPropertyImages(String id) async {
+      final Map<String, PropertyImage> properyImages =
+          Provider.of<PropertyImageProvider>(context, listen: false)
+              .getpropertyimages;
+      if (properyImages[id] == null) {
+        return await Provider.of<PropertyImageProvider>(context, listen: false)
+            .fetchpropertyimages(id);
+      }
+      print(properyImages[id]!.imageUrl);
+      return properyImages[id]!.imageUrl;
+    }
+
     return FutureBuilder(
-        future: _future,
+        future: _getPropertyImages(id),
         builder: (context, data) {
-          if (!data.hasData) {
+          if (data.connectionState == ConnectionState.waiting ||
+              !data.hasData) {
             return SizedBox(
               height: 200,
               width: double.infinity,
@@ -56,7 +45,8 @@ class _PropertyImageWidgetState extends State<PropertyImageWidget> {
               width: double.infinity,
               height: 200,
               child: Image.network(
-                'https://jidetaiwoandco.com/crmportal/app/webroot/img/propertiesphotos/${data.data.toString()}',
+                'http://jidetaiwoandco.com/crmportal/app/webroot/img/propertiesphotos/${data.data.toString()}',
+                key: ValueKey(data.data.toString()),
                 fit: BoxFit.cover,
               ),
             );

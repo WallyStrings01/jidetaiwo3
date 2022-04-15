@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/model/agent_model.dart';
+import 'package:jidetaiwoapp/model/client_model.dart';
 import 'package:jidetaiwoapp/provider/agent_provider.dart';
-import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
+import 'package:jidetaiwoapp/provider/client_provider.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 import 'package:provider/provider.dart';
-
 import '../hextocolor.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -17,26 +17,19 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Agent? _agent;
+  Client? _client;
+  String? _option;
+  bool isLoading = false;
+  bool showError = false;
+  String errorMessage = '';
+  bool runOnce = true;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController? _controller1;
-  TextEditingController? _controller2;
-  TextEditingController? _controller3;
-  TextEditingController? _controller4;
-
-  @override
-  void initState() {
-    _initstate();
-    super.initState();
-  }
-
-  void _initstate() {
-    _agent = Provider.of<Agentprovider>(context, listen: false).getAgent;
-    _controller1 = TextEditingController(text: _agent!.clientName);
-    _controller2 = TextEditingController(text: _agent!.clientEmail);
-    _controller3 = TextEditingController(text: _agent!.clientMobileNumber);
-    _controller4 = TextEditingController(text: _agent!.clientAddress);
-  }
+  TextEditingController? _namecontroller;
+  TextEditingController? _phonecontroller;
+  TextEditingController? _emailcontroller;
+  TextEditingController? _addresscontroller;
 
   Widget _buildTextForm(String name, TextEditingController _controller) {
     return Column(
@@ -70,14 +63,97 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  Future<void> submitform(BuildContext context) async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      if (_option.toString().toLowerCase() == 'client') {
+        await Provider.of<Clientprovider>(context, listen: false).updateUser(
+            name: _namecontroller!.text,
+            phoneNumber: _phonecontroller!.text,
+            email: _emailcontroller!.text,
+            address: _addresscontroller!.text);
+      } else {
+        await Provider.of<Agentprovider>(context, listen: false).updateUser(
+            name: _namecontroller!.text,
+            phoneNumber: _phonecontroller!.text,
+            email: _emailcontroller!.text,
+            address: _addresscontroller!.text);
+      }
+      setState(() {
+        isLoading = false;
+      });
+    } catch (error) {
+      if (error.toString().contains('HttpException')) {
+        final extractedMessage = error.toString().split('HttpException: ')[1];
+        if (extractedMessage.trim() == 'EMAIL_EXISTS') {
+          errorMessage = 'Email already exist, try another email address';
+        }
+      } else {
+        errorMessage = 'An error occurred, try again later';
+      }
+      setState(() {
+        isLoading = false;
+        showError = true;
+      });
+    }
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Profile have been updated successfully'),
+      duration: Duration(seconds: 3),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    _option = ModalRoute.of(context)!.settings.arguments as String;
+    if(runOnce){
+      if (_option.toString().toLowerCase() == 'client') {
+        _client = Provider.of<Clientprovider>(context, listen: false).getClient;
+      } else {
+        _agent = Provider.of<Agentprovider>(context, listen: false).getAgent;
+      }
+      _namecontroller = TextEditingController(
+          text: _option.toString().toLowerCase() == 'client'
+              ? _client!.clientName
+              : _agent!.clientName);
+      _emailcontroller = TextEditingController(
+          text: _option.toString().toLowerCase() == 'client'
+              ? _client!.emailAddress
+              : _agent!.clientEmail);
+      _phonecontroller = TextEditingController(
+          text: _option.toString().toLowerCase() == 'client'
+              ? _client!.phoneNumber
+              : _agent!.clientMobileNumber);
+      _addresscontroller = TextEditingController(
+          text: _option.toString().toLowerCase() == 'client'
+              ? _client!.clientAddress
+              : _agent!.clientAddress);
+      runOnce = false;
+    }
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Builder(
-          builder: (context) => const AppBarWidget('Edit Profile'),
+      key: _scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: 28,
+            )),
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(
+              fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
+              fontSize: 20),
         ),
+        actions: [Container()],
       ),
       drawerEnableOpenDragGesture: false,
       drawer: const ClientDashboradMenuDrawer(),
@@ -89,19 +165,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Form(
                     key: _formKey,
                     child: Column(children: [
-                      _buildTextForm('Name', _controller1!),
+                      if (showError == true)
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  errorMessage.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.red, fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      _buildTextForm('Name', _namecontroller!),
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildTextForm('Phone', _controller2!),
+                      _buildTextForm('Phone', _phonecontroller!),
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildTextForm('Email', _controller3!),
+                      _buildTextForm('Email', _emailcontroller!),
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildTextForm('Address', _controller4!),
+                      _buildTextForm('Address', _addresscontroller!),
                       const SizedBox(
                         height: 40,
                       ),
@@ -118,15 +209,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ])),
               ),
-              ElevatedButtonWidget(
-                  width: double.infinity,
-                  height: 55,
-                  buttonText: 'Edit Profile',
-                  borderRadius: 8,
-                  textSize: 20,
-                  ontap: () {},
-                  textColor: Colors.white,
-                  bgColor: Theme.of(context).primaryColor),
+              isLoading
+                  ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).primaryColor,
+                        minimumSize: const Size(double.infinity, 51),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                      ),
+                      onPressed: () {},
+                      child: const Center(
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ))
+                  : ElevatedButtonWidget(
+                      width: double.infinity,
+                      height: 51,
+                      buttonText: 'Edit Profile',
+                      borderRadius: 8,
+                      textSize: 20,
+                      ontap: () => submitform(context),
+                      textColor: Colors.white,
+                      bgColor: Theme.of(context).primaryColor),
             ],
           )),
       //bottomNavigationBar: const BottomNavigationWidget(),

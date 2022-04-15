@@ -33,7 +33,7 @@ class AgentSettingScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(EditProfileScreen.routename);
+                Navigator.of(context).pushNamed(EditProfileScreen.routename, arguments: 'agent');
               },
               child: Container(
                 width: double.infinity,
@@ -53,7 +53,8 @@ class AgentSettingScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(ChangePasswordScreen.routename);
+                Navigator.of(context).pushNamed(ChangePasswordScreen.routename,
+                    arguments: 'agent');
               },
               child: Container(
                 width: double.infinity,

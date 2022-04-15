@@ -5,10 +5,12 @@ import 'package:jidetaiwoapp/widgets/button_widget.dart';
 
 class SearchforpropertyScreen extends StatelessWidget {
   static const routename = '/searchforpropertyscreen';
-  const SearchforpropertyScreen({Key? key}) : super(key: key);
+  SearchforpropertyScreen({Key? key}) : super(key: key);
 
+  List _searches = [];
   @override
   Widget build(BuildContext context) {
+    TextEditingController _propertyId = TextEditingController();
     Widget _dropdownform(String hintText, List<String> data) {
       return DropdownButtonFormField(
         decoration: InputDecoration(
@@ -41,8 +43,11 @@ class SearchforpropertyScreen extends StatelessWidget {
             ),
           );
         }).toList(),
-        onChanged: (_) {
+        onChanged: (value) {
           FocusScope.of(context).requestFocus(FocusNode());
+          _searches.add({
+            hintText.toLowerCase() : value.toString().toLowerCase()
+          });
         },
       );
     }
@@ -83,7 +88,7 @@ class SearchforpropertyScreen extends StatelessWidget {
                   width: 20,
                 ),
                 Expanded(
-                    child: _dropdownform('Contract',
+                    child: _dropdownform('Sale',
                         ['Contract', 'Letting', 'Lease', 'Valuation', 'Sale']))
               ],
             ),
@@ -111,13 +116,18 @@ class SearchforpropertyScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            _dropdownform('Price Range', ['A', 'B', 'C', 'D']),
+            _dropdownform('Price Range', ['1000000 - 50000000', '51000000 - 100000000', '101000000 - 200000000', '201000000 - 300000000']),
             const SizedBox(
               height: 10,
             ),
             TextField(
               autofocus: false,
+              controller: _propertyId,
               focusNode: FocusNode(canRequestFocus: false),
+              onChanged: (value) {
+                _searches.add(
+                    {'propertyid' : value.toLowerCase()});
+              },
               decoration: InputDecoration(
                 labelText: 'Property ID',
                 labelStyle: Theme.of(context)
@@ -142,7 +152,9 @@ class SearchforpropertyScreen extends StatelessWidget {
                 height: 48,
                 buttonText: 'Search',
                 borderRadius: 8,
-                ontap: () {},
+                ontap: () {
+                  Navigator.pop(context, _searches);
+                },
                 textColor: Colors.white,
                 bgColor: Theme.of(context).primaryColor)
           ]),
